@@ -29,20 +29,20 @@ Report
 | Layer | Question | Contents |
 |---|---|---|
 | SKILL | How should the agent operate? | routing, workflow, quality gates |
-| Frameworks | What should be investigated? | company, product, technology, market, competition, ecosystem, financial |
-| Domains | What is technically important in this category? | taxonomy, workflow, subsystems, software, algorithms, sensors, electronics, materials, reliability |
+| Frameworks | What should be investigated and how should it be evaluated? | company, product, technology, market, competition, ecosystem, financial |
+| Domains | What is technically important in this category? | taxonomy, workflow, technology model, subsystems, software, algorithms, sensors, electronics, materials, reliability |
 | Evidence | Why should this claim be trusted? | source hierarchy, confidence, fact/inference rules |
 | Playbooks | How should a recurring task be executed? | teardown, BOM, competitor comparison, launch, roadmap, supply chain, cost |
 | Templates | How should the result be presented? | company, product, technology, market, competition |
 
 ## 3. Domain Architecture
 
-Do not force all domains to contain identical knowledge files.
+A mature Domain uses the following structure:
 
 ```text
 Domains/<domain>/
 ├── domain.md
-├── technology.md
+├── technology-model.md
 └── knowledge/
     ├── Core Technology
     ├── Hardware / Subsystems
@@ -54,18 +54,28 @@ Domains/<domain>/
     └── Reliability / Service
 ```
 
-The categories are a design taxonomy, not a requirement to create empty files. A UV printer may need printhead, UV ink, curing, RIP, color management, sensors and control; an FDM printer may need motion, extrusion, hotend, firmware, sensors and materials; a robot vacuum may need SLAM, perception, navigation, drive, battery and docking.
+### Responsibilities inside a Domain
+
+| File | Responsibility |
+|---|---|
+| `domain.md` | Defines what the domain is, product taxonomy, workflow, research scope, benchmarks, terminology and knowledge map. |
+| `technology-model.md` | Defines how domain technologies are organized, connected, measured and causally related; maps technology nodes to Knowledge. |
+| `knowledge/*.md` | Stores reusable technical knowledge: principles, components, parameters, mechanisms, failure modes and long-term reference facts. |
+
+Do not force all domains to contain identical knowledge files. A UV printer may need printhead, UV ink, curing, RIP, color management, sensors and control; an FDM printer may need motion, extrusion, hotend, firmware, sensors and materials; a robot vacuum may need SLAM, perception, navigation, drive, battery and docking.
+
+The Domain technology model is not a second evaluation framework. It defines the technical system; `Frameworks/technology.md` defines how that system is evaluated.
 
 ## 4. Research Routing
 
 ### Product question
-`product.md + technology.md + relevant Domain knowledge + product-report.md`
+`product.md + technology.md + relevant Domain technology-model.md + relevant Domain knowledge + product-report.md`
 
 ### Company question
-`company.md + technology.md + relevant Domain knowledge + company-report.md`
+`company.md + technology.md + relevant Domain technology-model.md + relevant Domain knowledge + company-report.md`
 
 ### Technology question
-`technology.md + relevant Domain knowledge + technology-report.md`
+`technology.md + relevant Domain technology-model.md + relevant Domain knowledge + technology-report.md`
 
 ### Market question
 `market.md + competition.md + domain.md + market-report.md`
@@ -127,6 +137,25 @@ Only stable and sufficiently verified information should be promoted into long-t
 ## 7. Design Principle
 
 The system standardizes **how research is performed**, not the exact content of every industry.
+
+The core semantic distinction is:
+
+```text
+Framework
+= How to research / evaluate
+
+Domain
+= What matters in this category
+
+Technology Model
+= How the category's technologies connect and create capability
+
+Knowledge
+= What each technology actually is
+
+Template
+= How findings are presented
+```
 
 That makes the same Skill extensible from:
 
