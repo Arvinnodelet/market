@@ -133,7 +133,7 @@ Inspection / Calibration / Feedback
 | 9 | Control | 将测量转化为控制动作 | loop response, stability, feedback | `motion-control.md`, `control-system.md` |
 | 10 | Algorithms | 补偿动态、几何和打印误差 | shaping, pressure advance, calibration | `algorithms.md`, `calibration-algorithms.md` |
 | 11 | Firmware / Software | 连接用户工作流与机器执行 | compatibility, OTA, UX, cloud | `firmware.md`, `software.md`, `slicer.md` |
-| 12 | Materials | 决定打印窗口与最终性能 | temperature, shrinkage, moisture, strength | `materials.md`, `engineering-materials.md` |
+| 12 | Materials | 决定打印窗口与最终性能 | temperature, shrinkage, moisture, strength | `materials.md` |
 | 13 | Reliability / Service | 保证长期稳定运行 | failure rate, recovery, maintenance | `reliability.md` |
 
 ---
