@@ -136,7 +136,7 @@ Final Print Quality
 | 4 | Motion System | Positions printhead / substrate | accuracy, repeatability, speed, synchronization | `motion-system.md` |
 | 5 | Media / Vacuum Platform | Holds substrate flat | flatness, vacuum, work area, height control | `substrate-materials.md` |
 | 6 | RIP / Color Management | Converts artwork to jetting data | ICC, screening, channel control | `color-management.md`, `software.md` |
-| 7 | Control Electronics | Drives printhead, motion and UV | timing, synchronization, interfaces | `electronics.md`, `control-system.md` |
+| 7 | Electronics | Drives printhead, motion and UV | timing, synchronization, interfaces | `electronics.md`, `control-system.md` |
 | 8 | Sensors | Monitor position, ink, temperature and safety | resolution, repeatability, sampling | `sensors.md` |
 | 9 | Algorithms | Optimize jetting, compensation and image quality | nozzle compensation, screening, calibration | `algorithms.md` |
 | 10 | Reliability / Service | Maintains stable production | nozzle health, cleaning, recovery, uptime | `reliability.md` |
