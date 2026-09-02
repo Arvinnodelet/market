@@ -1,167 +1,259 @@
-# Firmware Knowledge Base
-
+# FDM Firmware Knowledge
 
 ## Purpose
 
-Evaluate firmware architectures, motion planning capabilities, and ecosystem dynamics in desktop 3D printing.
+研究 FDM 3D 打印机固件如何连接上层软件与底层实时控制，并分析其对运动、挤出、热控、传感器、自动化和生态的影响。
 
 ---
 
-# Open-Source Firmware
+## 1. Firmware Position in System
 
-## Marlin
-
-**Architecture**: Single MCU (STM32 / ATmega), all-in-one firmware
-
-**Advantages**:
-- Most mature ecosystem (10+ years)
-- Huge community & documentation
-- Runs on low-cost hardware (ATmega2560, STM32F1)
-- G-code standard compliance
-
-**Disadvantages**:
-- Limited motion planning (no native input shaping)
-- Single-MCU ceiling on speed (~250 mm/s practical max)
-- No built-in network/cloud support
-- Step-rate limited on 8-bit platforms
-
-**Typical Use**: Ender 3 stock, CR-10, budget printers
-
----
-
-## Klipper
-
-**Architecture**: Linux Host (RPi / SoC) + MCU (STM32 / RP2040 / GD32)
-
-```
-Linux Host (Raspberry Pi / SoC)
-│
-├── Kinematics & Motion Planning (Python)
-│   ├── Input Shaping          ← Vibration compensation
-│   ├── Pressure Advance       ← Linear advance for extrusion
-│   ├── Smooth Pressure Advance ← Improved PA algorithm
-│   └── Resonance Compensation  ← Per-axis frequency tuning
-│
-├── G-code Parsing
-│
-└── MCU Interface (SPI / USB)
-    │
-    ▼
-MCU (STM32 / RP2040)
-└── Step generation (real-time)
+```text
+Slicer / Cloud / UI
+        ↓
+G-code / Commands
+        ↓
+Firmware
+ ├── Parser
+ ├── Motion Planner
+ ├── Kinematics
+ ├── Extrusion Control
+ ├── Thermal Control
+ ├── Sensor Processing
+ ├── Calibration
+ └── Safety / Fault Handling
+        ↓
+MCU / Distributed Controllers
+        ↓
+Drivers / Heaters / Sensors
 ```
 
-**Key Features**:
-- **Input Shaping** — Eliminates ringing/ghosting at high acceleration. Requires accelerometer calibration (ADXL345). Supports MZV, ZV, EI, 2HUMP_EI shapers.
-- **Pressure Advance** — Compensates extruder pressure lag during acceleration changes. Prevents corner bulging and under-extrusion.
-- **Smooth Pressure Advance** — Improved PA that reduces extruder motor stress
-- **Resonance Compensation** — Per-axis frequency analysis for frame-specific tuning
-- **High Step Rate** — 300k+ steps/sec via dedicated MCU, enables 600+ mm/s
-- **Web Interface** — Mainsail / Fluidd for remote control & webcam
-- **Multi-MCU** — Supports distributed control (toolhead boards via CAN)
-
-**Advantages**:
-- Best speed/quality balance (input shaping + pressure advance)
-- Flexible development (Python kinematics, easy to modify)
-- Remote management built-in (web UI, API)
-- Multi-MCU for distributed architectures
-
-**Disadvantages**:
-- Requires Linux host (adds cost, complexity)
-- Not beginner-friendly (config files, calibration)
-- SPI/USB latency between host and MCU
-
-**Typical Use**: Voron, Creality Ender 3 V3 KE/Plus, RatRig, custom builds
+固件不是简单的“电机驱动程序”，而是整机实时控制层。
 
 ---
 
-## RepRapFirmware (RRF)
+## 2. Firmware Architectures
 
-**Architecture**: Duet3D boards (STM32 / SAME5x), RTOS-based
+### MCU-Centric
 
-**Advantages**:
-- Industrial-grade motion planning (jerk, acceleration control)
-- Built-in web interface (DWC — Duet Web Control)
-- CAN-FD expansion for toolheads & expansion boards
-- Excellent delta kinematics support
+典型：Marlin。
 
-**Disadvantages**:
-- Smaller community than Marlin/Klipper
-- Proprietary Duet hardware (cost premium)
-- Limited MCU platform support
+- Planner、运动、热控和 I/O 主要运行在 MCU
+- BOM 低
+- 架构成熟
+- 受 MCU 运算、内存和实时任务限制
 
-**Typical Use**: Delta printers, high-end DIY, industrial conversions
+### Host + MCU
 
----
+典型：Klipper。
 
-# Consumer Closed-Source Firmware
-
-## Bambu Lab OS (拓竹)
-
-**Architecture**: Linux (RV1126) + dual MCU (ESP32 + Spintrol SPC2168/SPC1168)
-
-```
-AP (RV1126 Linux)
-├── Bambu Studio communication
-├── AI inference (NPU): spaghetti detection, first-layer analysis
-├── HMS (Health Management System): 40+ error codes
-├── OTA update engine
-└── Communication proxy
-
-MC (SPC2168, dual M4F@200MHz)     TH (SPC1168, M4F@200MHz)
-├── Real-time motion planning       ├── Motor control
-├── CoreXY kinematics               ├── Sensor sampling (eddy current)
-├── Vibration compensation          ├── Heater PID
-├── PMSM servo control              └── Filament handling
-└── Bambu-Bus communication
+```text
+Linux Host
+ ├── G-code processing
+ ├── Kinematics
+ ├── Motion planning
+ ├── Input shaping
+ └── API / Web interface
+          ↓
+       MCU
+ ├── Step generation
+ ├── ADC / sensors
+ ├── Heater control
+ └── GPIO
 ```
 
-**Key Features**:
-- **Proprietary motion planning** — Optimized CoreXY trajectories, vibration compensation tuned per-machine
-- **Eddy current sensor fusion** — Hardware-level integration for calibration + flow compensation + clump detection
-- **AI on NPU** — On-chip inference for spaghetti detection, first-layer inspection
-- **HMS** — Structured error reporting with human-readable descriptions and fix suggestions
-- **OTA Updates** — Firmware + software updates over WiFi
-- **Security** — Encrypted firmware, signed updates, cloud auth
+### Distributed
+
+多个 MCU 分担工具头、主板、热床和传感器任务，适合高集成、高速、多工具系统。
 
 ---
 
-## Creality OS (创想三维)
+## 3. Major Firmware Families
 
-**Architecture**: Linux SoC (dual-core Cortex-A7) running Creality OS
-
-**Key Features**:
-- Based on Klipper core with Creality modifications
-- Integrated with Creality Cloud (remote control, AI monitoring)
-- CFS communication protocol (CAN bus)
-- RFID filament auto-detection
-- AI camera integration (spaghetti detection, flow calibration)
-- Creality Print slicer integration
-
-**Compared to Bambu Lab OS**:
-- More open (Klipper heritage allows community modifications)
-- Less polished motion planning (fewer hardware-specific optimizations)
-- AI features are cloud-dependent (vs Bambu's on-device NPU)
+| Firmware | Architecture | Strength | Limitation | Typical Position |
+|---|---|---|---|---|
+| Marlin | MCU-centric | Mature / low cost | Compute ceiling | Budget / traditional |
+| Klipper | Linux + MCU | Flexible / high-performance | Requires host | DIY / prosumer |
+| RepRapFirmware | MCU / distributed | Strong kinematics / web control | Smaller ecosystem | Premium DIY |
+| Vendor Firmware | Integrated HW/SW | OOBE / optimization | Less transparent | Consumer systems |
 
 ---
 
-# Firmware Comparison Matrix
+## 4. Motion Functions
 
-| Firmware | Performance | Flexibility | Community | Learning Curve | HW Cost | Closed/Open |
-|---|---|---|---|---|---|---|
-| **Marlin** | Medium | High | Very High | Low | Low | Open |
-| **Klipper** | High | Very High | High | Medium | Medium | Open |
-| **RRF** | High | High | Medium | Medium | High | Open |
-| **Bambu Lab OS** | Very High | Low | — | Low (user) | Included | Closed |
-| **Creality OS** | Medium-High | Medium | Medium | Low (user) | Included | Semi-closed |
+重点分析：
+
+- Kinematics
+- Acceleration / velocity planning
+- Junction / corner handling
+- Step generation
+- Input shaping
+- Resonance compensation
+- Pressure advance / linear advance
+- Synchronization between axes
+
+### Important distinction
+
+`Maximum speed` is a machine specification; firmware capability is only one limiting factor.
+
+实际可用速度还受到：
+
+```text
+Firmware
+ + Motor / Driver
+ + Belt / Pulley
+ + Frame
+ + Toolhead Mass
+ + Hotend Flow
+ + Cooling
+ + Material
+```
+
+共同限制。
 
 ---
 
-# Industry Trends (2024–2026)
+## 5. Thermal Control
 
-- **Klipper dominance in open-source**: 80%+ of new DIY/custom builds use Klipper
-- **Closed-source vertical integration**: Bambu Lab proves tight HW+FW integration produces the best out-of-box experience
-- **AI moving to firmware layer**: Spaghetti detection, flow calibration, and print monitoring becoming standard FW features
-- **Distributed architectures**: CAN toolhead boards enable modular, serviceable designs
-- **Cloud connectivity as baseline**: WiFi + cloud app control is now expected, not premium
-- **Security becoming critical**: Encrypted firmware, signed updates, platform authentication
+固件负责：
+
+- Heater PWM
+- PID control
+- Temperature sampling
+- Thermal runaway protection
+- Bed / nozzle / chamber coordination
+- Heating state management
+
+研究时关注：
+
+- PID tuning strategy
+- Sampling rate
+- Sensor type
+- Protection thresholds
+- Fault recovery
+
+---
+
+## 6. Sensor Integration
+
+```text
+Sensor
+  ↓
+ADC / Bus
+  ↓
+Firmware Driver
+  ↓
+Filtering / Validation
+  ↓
+State / Measurement
+  ↓
+Calibration / Control / Alert
+```
+
+必须确认传感器数据最终进入哪个功能：
+
+- Calibration
+- Motion control
+- Thermal control
+- Material handling
+- Failure detection
+- User alert
+
+**传感器存在 ≠ 闭环控制。**
+
+---
+
+## 7. Calibration Functions
+
+常见固件校准：
+
+- Z-offset
+- Bed mesh
+- PID tuning
+- Flow calibration
+- Pressure advance
+- Input shaping
+- Motor / belt characterization
+- Toolhead / nozzle alignment
+
+自动校准研究应拆成：
+
+```text
+Measurement → Estimation → Parameter → Application
+```
+
+---
+
+## 8. Safety & Fault Handling
+
+固件应覆盖：
+
+- Thermal runaway
+- Sensor disconnect
+- Over-temperature
+- Endstop fault
+- Motor fault
+- Filament runout
+- Door / enclosure state
+- Power-loss recovery
+- Print pause / resume
+
+研究重点不是功能列表，而是：**检测 → 判定 → 动作 → 恢复**。
+
+---
+
+## 9. Open vs Closed Firmware
+
+### Open
+
+优势：
+
+- 可修改
+- 社区生态
+- 硬件兼容性
+- 易于二次开发
+
+代价：
+
+- 用户配置复杂
+- HW/SW 优化不一定充分
+- 版本兼容需要管理
+
+### Closed / Integrated
+
+优势：
+
+- 硬件、固件、算法协同优化
+- 更好的 OOBE
+- 更容易实现统一自动化
+
+代价：
+
+- 可见性低
+- 生态锁定
+- 第三方修改能力有限
+
+---
+
+## 10. Firmware Evaluation Framework
+
+| Dimension | Questions |
+|---|---|
+| Performance | planner / step generation 是否满足整机需求？ |
+| Control | 是否支持关键控制回路？ |
+| Automation | 自动校准覆盖程度？ |
+| Reliability | 故障检测与恢复能力？ |
+| Openness | 源码、配置、API 是否开放？ |
+| Ecosystem | 社区、插件、工具链？ |
+| Integration | HW/FW/Software 是否协同？ |
+| Security | OTA、签名、认证和访问控制？ |
+
+---
+
+## 11. Evidence Rules
+
+对厂商宣称的“AI、闭环、智能校准、高速”等功能，应追踪到：
+
+`Sensor → Data → Algorithm → Parameter/Command → Machine Response`
+
+如果只能证明存在摄像头、加速度计或其他传感器，应标记为 **Reported / Confirmed sensor capability**，而不能直接升级为 **closed-loop control**。
