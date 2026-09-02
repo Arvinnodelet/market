@@ -1,6 +1,6 @@
 ---
 name: hardware-industry-analyst
-version: 2.1.0
+version: 2.2.0
 description: Analyze consumer hardware products, companies, technologies, ecosystems, competition, markets, manufacturing, and economics across multiple hardware domains.
 triggers:
   - 3D打印
@@ -77,7 +77,7 @@ The system separates four layers:
 ```text
 Research Process
       ↓
-Frameworks  ← what must be investigated
+Frameworks  ← how to investigate
       ↓
 Domain      ← what matters in this hardware category
       ↓
@@ -107,9 +107,9 @@ Report
 | `laser-engraver` | 激光雕刻机 | Laser Engraver | Active |
 | `pool-robot` | 泳池清洁机器人 | Pool Robot | Active |
 | `lawn-mower` | 割草机器人 | Robot Lawn Mower | Active |
-| `uv-printer` | UV 打印机 | UV Printer | Ready to add |
+| `uv-printer` | UV 打印机 | UV Printer | Active |
 
-新增硬件品类优先创建 `Domains/<domain>/`，而不是创建新的专项 Skill。最小启动内容是 `domain.md`；`technology.md` 和 `knowledge/` 随研究积累。
+新增硬件品类优先创建 `Domains/<domain>/`，而不是创建新的专项 Skill。最小启动内容是 `domain.md`；`technology-model.md` 和 `knowledge/` 随研究积累。
 
 ## 3. Research Categories
 
@@ -143,7 +143,7 @@ Report
 
 ### Step 3 — Load Domain Model
 
-必须读取 `domain.md`；存在时按需读取 `technology.md` 和 `knowledge/*.md`。缺少知识模块不是错误，可以先通过 WebSearch 建立事实，再把验证过且长期复用的信息沉淀到 Domain knowledge。
+必须读取 `domain.md`；存在时按需读取 `technology-model.md` 和 `knowledge/*.md`。缺少知识模块不是错误，可以先通过 WebSearch 建立事实，再把验证过且长期复用的信息沉淀到 Domain knowledge。
 
 ### Step 4 — Read Reference Report (MANDATORY)
 
@@ -309,7 +309,7 @@ Sources 使用独立条目：
        ↓
 验证关键结论
        ↓
-沉淀 technology.md / knowledge/*.md
+沉淀 technology-model.md / knowledge/*.md
        ↓
 下一次研究直接复用
        ↓
@@ -322,6 +322,7 @@ WebSearch 主要用于更新、验证和发现变化
 
 | Version | Date | Change |
 |---|---|---|
+| V2.2.0 | 2026-09-02 | Architecture cleanup：统一 Domain technology-model 命名；修复 FDM material 断链；统一 UV control/electronics terminology；UV domain 标记为 Active |
 | V2.1.0 | 2026-09-02 | 升级为研究 + 证据 + 评价体系；Company/Product 结构分离；技术深度动态化；新增 Market/Research/Evidence 体系；取消默认 Buy/Consider/Skip |
 | V2.0.1 | 2026-07-01 | 强制读取已有报告作为格式标尺；增加技术深度约束；禁止 SWOT/emoji/星级评分 |
 | V2.0.0 | 2026-06-30 | 从 3DP 专项 Skill 重构为通用 Skill + Domain 插件 |
