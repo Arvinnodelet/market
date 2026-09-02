@@ -1,204 +1,219 @@
-# Materials Knowledge Base
-
+# FDM Materials Knowledge
 
 ## Purpose
 
-Evaluate FDM filament materials by mechanical properties, thermal performance, printability, cost, and application fit. Used for assessing printer material compatibility and ecosystem strategy.
+研究 FDM 材料的热学、机械、流变、吸湿、收缩、磨蚀和打印窗口，并判断打印机是否真正具备对应材料的稳定加工能力。
 
 ---
 
-# Material Profiles
+## 1. Material Capability Model
 
-## PLA (Polylactic Acid)
+```text
+Material Chemistry
+      ↓
+Thermal Window + Rheology
+      ↓
+Extrusion / Hotend
+      ↓
+Bed + Chamber + Cooling
+      ↓
+Layer Bonding / Shrinkage
+      ↓
+Part Properties
+      ↓
+Application Fit
+```
 
-| Property | Value |
-|---|---|
-| Nozzle Temp | 190–220°C |
-| Bed Temp | 0–60°C (optional) |
-| Print Speed | 30–600 mm/s |
-| Tensile Strength | 50–60 MPa |
-| Heat Deflection (HDT) | ~55°C |
-| Density | 1.24 g/cm³ |
-
-**Advantages**: Easiest to print, low warp, no enclosure needed, biodegradable, wide color range, low odor
-**Disadvantages**: Low heat resistance (deforms in car/ dishwasher), brittle under impact, poor UV resistance
-**Best For**: Decorative, prototyping, education, low-stress parts
-**Not For**: Outdoor, high-temp, load-bearing
-
----
-
-## PETG (Polyethylene Terephthalate Glycol)
-
-| Property | Value |
-|---|---|
-| Nozzle Temp | 220–250°C |
-| Bed Temp | 70–85°C |
-| Print Speed | 40–120 mm/s |
-| Tensile Strength | 45–55 MPa |
-| HDT | ~70°C |
-| Density | 1.27 g/cm³ |
-
-**Advantages**: Tough (impact-resistant), chemical-resistant, good layer adhesion, less warp than ABS, food-safe grades available
-**Disadvantages**: Stringing/oozing, hygroscopic (needs drying: 65°C × 4h), glossy surface shows imperfections, poor bridging
-**Best For**: Functional parts, mechanical components, outdoor (with UV additives), containers
-**Not For**: High-temp (>70°C), high-speed printing
+材料研究不能只记录“支持 PLA / PA / PPS”，而应研究完整 process window。
 
 ---
 
-## ABS (Acrylonitrile Butadiene Styrene)
+## 2. Material Families
 
-| Property | Value |
-|---|---|
-| Nozzle Temp | 230–260°C |
-| Bed Temp | 90–110°C |
-| Chamber Temp | 40–60°C recommended |
-| Print Speed | 40–100 mm/s |
-| Tensile Strength | 35–45 MPa |
-| HDT | ~95°C |
-| Density | 1.04 g/cm³ |
-
-**Advantages**: Engineering-grade, good heat resistance, sandable/paintable, acetone vapor smoothing, durable
-**Disadvantages**: Significant warping (requires enclosure), strong fumes (VOCs — requires ventilation), UV-sensitive, hygroscopic
-**Best For**: Functional prototypes, automotive parts, enclosures, post-processed parts
-**Not For**: Open-frame printers, food contact, outdoor without coating
-
----
-
-## ASA (Acrylonitrile Styrene Acrylate)
-
-| Property | Value |
-|---|---|
-| Nozzle Temp | 240–260°C |
-| Bed Temp | 90–110°C |
-| Chamber Temp | 40–60°C recommended |
-| Print Speed | 40–100 mm/s |
-| Tensile Strength | 40–50 MPa |
-| HDT | ~95°C |
-| Density | 1.07 g/cm³ |
-
-**Advantages**: UV-resistant (best outdoor FDM material), same mechanicals as ABS, less warping than ABS, good chemical resistance
-**Disadvantages**: Still needs enclosure, fumes (less than ABS but present), more expensive than ABS, hygroscopic
-**Best For**: Outdoor functional parts, automotive trim, garden/agriculture, drone/RC parts
-**Not For**: Open-frame, budget builds
-
----
-
-## TPU (Thermoplastic Polyurethane)
-
-| Property | Value |
-|---|---|
-| Nozzle Temp | 210–250°C |
-| Bed Temp | 30–60°C |
-| Print Speed | 20–40 mm/s (slow!) |
-| Shore Hardness | 60A–95A (flexible) / 55D–75D (rigid-flex) |
-| Tensile Strength | 25–50 MPa |
-| Elongation | 300–600% |
-| Density | 1.20 g/cm³ |
-
-**Advantages**: Flexible, impact-absorbing, excellent layer adhesion, chemical/abrasion resistant
-**Disadvantages**: Very slow printing, stringing, moisture-sensitive (dry at 55°C × 4h), NOT compatible with AMS/CFS/MMU multi-material systems, Bowden extruders struggle
-**Best For**: Gaskets, phone cases, drone bumpers, shoe soles, vibration dampeners
-**Not For**: Multi-color systems, Bowden setups, high-speed printing
-
----
-
-## PA (Nylon)
-
-| Property | Value |
-|---|---|
-| Nozzle Temp | 250–280°C |
-| Bed Temp | 80–100°C |
-| Chamber Temp | 40–60°C recommended |
-| Print Speed | 30–70 mm/s |
-| Tensile Strength | 60–80 MPa |
-| HDT | ~100–180°C |
-| Density | 1.14 g/cm³ |
-
-**Advantages**: Strong, tough, wear-resistant, high heat resistance, low friction (gear applications), chemical-resistant
-**Disadvantages**: Extremely hygroscopic (must dry: 80°C × 6h, print from dry box), warping, enclosure required, expensive, abrasive to brass nozzles
-**Best For**: Gears, bearings, functional mechanical parts, high-stress components
-**Not For**: Open printers, budget builds, beginners
-
----
-
-## Carbon Fiber Filled (PLA-CF / PETG-CF / PA-CF / PAHT-CF)
-
-| Property | PLA-CF | PETG-CF | PA-CF | PAHT-CF |
-|---|---|---|---|---|
-| Nozzle Temp | 200–230°C | 230–260°C | 260–290°C | 280–320°C |
-| Bed Temp | 50–60°C | 70–85°C | 80–100°C | 100–120°C |
-| Strength Gain vs Unfilled | +20% stiffness | +30% stiffness | +50% stiffness | +60% stiffness |
-| HDT | ~60°C | ~75°C | ~140°C | ~180°C |
-| Cost (per kg) | $25–35 | $30–45 | $50–80 | $80–120 |
-
-**Advantages**: High stiffness-to-weight, low warp (CF reduces shrinkage), matte surface finish, dimensional stability
-**Disadvantages**: Abrasive (REQUIRES hardened steel or better nozzle), brittle (lower impact strength than unfilled), more expensive, nozzle clog risk with high CF%
-**Best For**: Structural brackets, drone frames, jigs & fixtures, cosmetic parts (matte finish)
-**Not For**: Brass nozzles (will destroy in hours), impact applications
-
----
-
-## High-Performance (PPA-CF / PPS / PEI)
-
-| Property | PPA-CF | PPS | PEI (Ultem) |
+| Family | Typical Examples | Main Challenge | Typical Application |
 |---|---|---|---|
-| Nozzle Temp | 280–320°C | 300–350°C | 350–380°C |
-| Bed Temp | 100–120°C | 100–140°C | 140–160°C |
-| Chamber Temp | 50–60°C | 60–80°C | 80–120°C |
-| HDT | ~180°C | ~220°C | ~200°C |
-| Cost (per kg) | $80–120 | $100–200 | $200–400 |
-| Printer Required | K2 Plus / H2D / Industrial | H2D+ / Industrial | Industrial only |
-| Applications | Aerospace, under-hood | Chemical processing | Aerospace, medical |
+| Easy | PLA | heat resistance | models / prototypes |
+| General-purpose | PETG | stringing / moisture | functional parts |
+| Enclosure-grade | ABS / ASA | warping / emissions | housings / outdoor |
+| Flexible | TPU / TPE | feeding / deformation | seals / dampers |
+| Engineering | PA / PC | moisture / thermal management | mechanical parts |
+| Composite | PLA-CF / PA-CF / GF | abrasion / nozzle wear | stiff structural parts |
+| High-performance | PPA / PPS / PEI | high temperature / crystallinity | demanding engineering |
+| Support | PVA / BVOH / breakaway | moisture / interface | complex geometry |
 
 ---
 
-# Material Selection Matrix
+## 3. Material Research Dimensions
 
-| Requirement | Best Material | Acceptable | Avoid |
-|---|---|---|---|
-| Easiest to print | PLA | PETG | ABS, PA, TPU |
-| Heat resistance >100°C | PA-CF, PPA-CF | ABS, ASA | PLA, PETG |
-| Outdoor / UV | ASA | PETG (UV grade) | PLA, ABS |
-| Flexible / impact | TPU | — | PLA, CF-filled |
-| Strength + stiffness | PA-CF, PPA-CF | PA, PETG-CF | PLA, TPU |
-| Food contact | PETG (food-grade) | PLA (food-grade) | ABS, ASA, PA |
-| Chemical resistance | PA, PP | PETG | PLA, ABS |
-| Low cost | PLA ($15–25/kg) | PETG ($18–28/kg) | PA-CF, PEEK |
-| Multi-color system | PLA, PETG, ABS | ASA, PA | TPU (jams AMS/CFS) |
-| Print farm throughput | PLA, PETG (fast) | ABS (slow) | TPU (very slow) |
+### Thermal
+
+- Nozzle temperature window
+- Bed temperature
+- Chamber temperature
+- Melt stability
+- Heat deflection temperature
+- Glass transition / melting / crystallization behavior where relevant
+
+### Mechanical
+
+- Tensile strength
+- Modulus / stiffness
+- Elongation
+- Impact resistance
+- Creep
+- Layer-direction anisotropy
+
+### Processability
+
+- Volumetric flow limit
+- Stringing
+- Bridging
+- Overhang behavior
+- Shrinkage / warping
+- Cooling requirement
+- Adhesion
+
+### Environmental
+
+- Moisture sensitivity
+- UV resistance
+- Chemical resistance
+- Temperature aging
+
+### Hardware Interaction
+
+- Abrasion
+- Nozzle compatibility
+- Extruder feed reliability
+- Dry-box requirement
+- Chamber requirement
 
 ---
 
-# Multi-Material System Compatibility
+## 4. Printer-to-Material Capability
 
-| Material | AMS (Bambu) | CFS (Creality) | MMU3 (Prusa) | Notes |
-|---|---|---|---|---|
-| PLA | ✅ | ✅ | ✅ | Best for multi-color |
-| PETG | ✅ | ✅ | ✅ | Stringing increases waste |
-| ABS | ✅ | ✅ | ⚠️ | Purge temps differ |
-| ASA | ✅ | ✅ | ⚠️ | Similar to ABS |
-| PA | ⚠️ | ⚠️ | ⚠️ | Moisture absorption in unit |
-| TPU | ❌ | ❌ | ❌ | Flexible — jams feed path |
-| CF-filled | ⚠️ | ⚠️ | ⚠️ | Abrasive to cutter; hardened nozzle only |
-| PVA (support) | ✅ | ✅ | ✅ | Water-soluble interface |
+Use the following chain before claiming compatibility:
+
+```text
+Material Requirement
+      ↓
+Nozzle Temperature
+      ↓
+Bed Temperature
+      ↓
+Chamber Requirement
+      ↓
+Hotend / Extruder Capability
+      ↓
+Nozzle Wear Resistance
+      ↓
+Drying / Storage
+      ↓
+Validated Print Profile
+      ↓
+Stable Part Quality
+```
+
+因此：
+
+- `Max nozzle temperature` ≠ high-temperature material capability
+- `Open chamber` ≠ engineering-material readiness
+- `Can extrude` ≠ can print dimensionally stable parts
+- `Officially supported` ≠ guaranteed performance across all geometries
 
 ---
 
-# Filament Ecosystem Strategy
+## 5. Multi-Material Systems
 
-| Strategy | Description | Examples | Advantage | Disadvantage |
-|---|---|---|---|---|
-| **Open** | Any brand, no RFID | Prusa, Voron | Freedom, price competition | Manual setup per spool |
-| **RFID Closed** | Proprietary RFID spools only | Bambu AMS, Creality CFS | Auto-detect, preset profiles | Higher cost, vendor lock-in |
-| **Certified** | "Recommended" but not required | Prusa, UltiMaker | Quality assurance + flexibility | Certification cost |
+研究 AMS / CFS / MMU / toolchanger 时关注：
+
+- Material path geometry
+- Filament stiffness range
+- Feed / retract reliability
+- Cutting mechanism
+- Purge strategy
+- Drying / humidity control
+- RFID / NFC identification
+- Profile management
+- Cross-contamination
+
+多材料能力应同时评价：
+
+`Color Count + Material Compatibility + Change Time + Purge Waste + Reliability`。
 
 ---
 
-# Industry Trends (2024–2026)
+## 6. Composite Materials
 
-- **CF/GF composites going mainstream**: PLA-CF and PETG-CF now standard in mid-range printers
-- **Engineering materials reaching consumer**: PPA-CF and PPS printable on $1,500 printers (K2 Plus, H2D)
-- **RFID lock-in battle**: Bambu RFID vs Creality RFID ecosystems competing for filament recurring revenue
-- **High-speed formulations**: Hyper PLA, High-speed PETG, Rapid ABS — tuned for 300–600 mm/s
-- **Recycled / sustainable filaments**: rPLA, rPETG gaining traction; still niche
-- **Multi-material support materials**: PVA/BVOH for soluble supports, breakaway PLA for easy removal
+CF/GF 填充材料重点研究：
+
+- Fiber length and loading
+- Nozzle wear
+- Extruder wear
+- Flow calibration
+- Fiber orientation
+- Strength anisotropy
+- Surface finish
+
+推荐将 nozzle 材料与 composite capability 一起研究，而不是单独评价。
+
+---
+
+## 7. Material × Machine Matrix
+
+报告中可建立：
+
+| Material | Thermal Need | Chamber | Abrasion | Moisture | Typical Machine Requirement |
+|---|---|---|---|---|---|
+| PLA | Low | No | Low | Low-Medium | Basic heated bed |
+| PETG | Medium | Usually No | Low | Medium | Heated bed |
+| ASA | Medium-High | Recommended | Low | Medium | Enclosed / heated bed |
+| TPU | Medium | No | Low | Medium | Reliable direct-drive path |
+| PA | High | Recommended | Medium | High | High-temp hotend + drying |
+| PA-CF | High | Recommended | High | High | Hardened nozzle + drying |
+| PPA/PPS | Very High | Required | Often High | High | Engineering thermal system |
+
+具体温度和性能数据必须以材料厂商 TDS / 打印配置为证据，不应把表格中的典型区间当成 universal specification。
+
+---
+
+## 8. Ecosystem Strategy
+
+### Open Material Ecosystem
+
+任何合规耗材都可以使用。
+
+优点：选择多、价格竞争充分、用户自由度高。
+
+### Profile-Certified Ecosystem
+
+第三方材料可使用，但厂商提供经过验证的 profile / certification。
+
+### Integrated / Identified Ecosystem
+
+通过 RFID / NFC / 云端 profile 管理材料参数。
+
+研究其商业意义：
+
+```text
+Printer Installed Base
+        ↓
+Material Profiles
+        ↓
+Consumables Convenience
+        ↓
+Recurring Revenue / Lock-in
+```
+
+---
+
+## 9. Evidence Requirements
+
+材料参数优先级：
+
+1. 材料厂商 TDS / SDS / 官方打印指南
+2. 打印机官方材料兼容矩阵与 profile
+3. 独立测试
+4. 用户长期反馈
+
+必须记录测试条件，因为拉伸强度、HDT、流量和打印速度高度依赖材料配方、打印方向、层高、冷却和测试标准。
