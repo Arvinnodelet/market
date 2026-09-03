@@ -33,7 +33,7 @@ Report
 | Domains | What is technically important in this category? | taxonomy, workflow, technology model, subsystems, software, algorithms, sensors, electronics, materials, reliability |
 | Evidence | Why should this claim be trusted? | source hierarchy, confidence, fact/inference rules |
 | Playbooks | How should a recurring task be executed? | teardown, BOM, competitor comparison, launch, roadmap, supply chain, cost |
-| Templates | How should the result be presented? | company, product, technology, market, competition |
+| Templates | How should the result be presented? | company, product, technology, market, competition, ecosystem, financial |
 
 ## 3. Domain Architecture
 
@@ -53,6 +53,27 @@ Domains/<domain>/
     ├── Materials / Consumables
     └── Reliability / Service
 ```
+
+### Domain Lifecycle
+
+```text
+Scaffold
+  ↓
+Domain Model complete
+  ↓
+Technology Model established
+  ↓
+Core Knowledge modules established
+  ↓
+Active
+  ↓
+Repeated research / validation
+  ↓
+Continuous refinement
+```
+
+- **Scaffold**: routing entry exists, but technical model and knowledge coverage are incomplete.
+- **Active**: sufficient Domain Model + Technology Model + core Knowledge coverage exists for production research.
 
 ### Responsibilities inside a Domain
 
@@ -79,6 +100,12 @@ The Domain technology model is not a second evaluation framework. It defines the
 
 ### Market question
 `market.md + competition.md + domain.md + market-report.md`
+
+### Ecosystem question
+`ecosystem.md + relevant Domain knowledge + ecosystem-report.md`
+
+### Financial question
+`financial.md + company.md + relevant evidence + financial-report.md`
 
 ### Competitor question
 `competition.md + relevant Domain knowledge + competitor-comparison.md + competition-report.md`
