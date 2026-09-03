@@ -1,4 +1,4 @@
-# Robot Vacuum Domain Configuration
+# Robot Vacuum Domain Model
 
 ## Metadata
 
@@ -6,64 +6,241 @@
 - **name_zh**: 扫地机器人
 - **name_en**: Robot Vacuum
 - **category**: Home Service Robot
+- **scope**: Consumer and prosumer autonomous floor-cleaning robots, including robot vacuum/mop systems and multifunction docking stations.
 
-## Key Subsystems
+## 1. Domain Definition
 
-| Order | Subsystem | Knowledge Module | What It Covers |
+### Definition
+Robot vacuum systems combine autonomous navigation, floor cleaning, sensing, control, software and often a multifunction base station to perform recurring household cleaning with limited user intervention.
+
+### Included
+- Robot vacuum and vacuum-mop products
+- Navigation, localization, mapping and obstacle avoidance
+- Vacuuming, brushing, mopping and carpet handling
+- Sensors, perception, control, firmware and app/cloud software
+- Multifunction base stations, charging and consumable management
+
+### Excluded
+- Cordless stick vacuums and handheld vacuums without autonomous navigation
+- Commercial cleaning robots for industrial environments
+- General-purpose mobile robots not designed primarily for floor cleaning
+
+## 2. Product Taxonomy
+
+| Segment | Product Type | Primary User | Main Differentiator |
 |---|---|---|---|
-| 1 | Navigation | `knowledge/navigation.md` | LiDAR SLAM, vSLAM, dToF, hybrid — accuracy, speed, reliability |
-| 2 | Cleaning System | `knowledge/cleaning-systems.md` | Main brush, side brush, suction power, mopping, roller design |
-| 3 | Sensors | `knowledge/sensors.md` | Obstacle avoidance, cliff, dirt detection, carpet recognition |
-| 4 | Mapping & Software | `knowledge/mapping.md` | Map building, room segmentation, multi-floor, app UX |
-| 5 | Base Station | `knowledge/base-station.md` | Auto-empty, mop washing, water tank, heated drying |
-| 6 | Firmware | `knowledge/firmware.md` | RTOS, navigation stack, OTA, voice assistant integration |
+| Entry | Basic robot vacuum | Price-sensitive household | Low cost, simple navigation |
+| Mid | Vacuum + mop robot | Mainstream household | Balanced cleaning and automation |
+| Premium | Advanced vacuum-mop | Tech-oriented household | Better perception, mopping and automation |
+| Flagship | Multifunction robot + dock | High-automation household | Self-emptying, washing, drying, refill and advanced navigation |
 
-## Industry Media & Data Sources
+Technology taxonomy should separately distinguish navigation architecture, cleaning architecture, sensing stack and base-station architecture.
 
-1. 公司官网 / Official Wiki
-2. 行业媒体：Vacuum Wars、Robot Report、什么值得买、知乎科技、CNET Smart Home
-3. 社区论坛：Reddit (r/RobotVacuums, r/homeautomation)、什么值得买、小红书
-4. 供应链公开信息
-5. 竞品对比评测（Vacuum Wars YouTube 频道为首选基准）
+## 3. Users & Use Cases
 
-## Terminology
+| User | Need | Workflow | Purchase Driver | Pain Point |
+|---|---|---|---|---|
+| Mainstream household | Routine floor cleaning | Schedule → clean → return → charge | Convenience | Missed areas / maintenance |
+| Pet household | Hair and debris handling | Frequent vacuuming | Brush/suction performance | Hair tangling / odor |
+| Multi-room home | Reliable autonomous navigation | Map → plan → clean zones | Navigation reliability | Stuck / missed rooms |
+| High-automation user | Minimal intervention | Clean → dock service → resume | Dock automation | Dock size / consumables |
 
-| English | 中文 | 说明 |
+## 4. Domain Workflow
+
+```text
+User / Schedule
+      ↓
+Map / Task Planning
+      ↓
+Localization + Navigation
+      ↓
+Obstacle / Surface Perception
+      ↓
+Motion + Vacuuming + Mopping
+      ↓
+Return / Docking
+      ↓
+Auto-Empty / Mop Wash / Dry / Refill
+      ↓
+Status Feedback / Maintenance
+      ↑
+Sensors + Software + User Input
+```
+
+## 5. Key Technology / Subsystems
+
+| Order | Subsystem | What It Does | Key Metrics | Knowledge Module |
+|---|---|---|---|---|
+| 1 | Navigation | Localization, path planning and coverage | localization error, coverage, recovery | `knowledge/navigation.md` |
+| 2 | Cleaning System | Vacuuming, brushing and mopping | pickup, edge cleaning, hair handling, water use | `knowledge/cleaning-systems.md` |
+| 3 | Sensors | Perception and machine-state sensing | detection range, accuracy, false positives | `knowledge/sensors.md` |
+| 4 | Mapping & Software | Maps, task logic, UI and cloud functions | map stability, usability, automation | `knowledge/mapping.md` |
+| 5 | Base Station | Charging and maintenance automation | empty/wash/dry/refill effectiveness | `knowledge/base-station.md` |
+| 6 | Firmware | Real-time control and system orchestration | response, recovery, OTA/serviceability | `knowledge/firmware.md` |
+
+## 6. Domain-Specific Benchmarks
+
+| Dimension | Core Metrics | Measurement / Comparison Notes |
 |---|---|---|
-| LiDAR SLAM | 激光导航 | 360° 旋转激光测距 + 同步定位建图 |
-| vSLAM | 视觉导航 | 单目/双目摄像头 + 特征点匹配建图 |
-| dToF | 3D 结构光/飞行时间 | 红外激光阵列深度测距 |
-| LDS | 激光测距传感器 | Laser Distance Sensor 的简称 |
-| Base Station | 基站 | 多功能底座：充电 + 集尘 + 洗拖布 + 烘干 + 补水 |
-| Auto-Empty | 自动集尘 | 基站将尘盒吸入集尘袋 |
-| Mop Lifting | 拖布抬升 | 识别地毯后自动抬升拖布模块 |
-| Pa | 帕斯卡 | 吸力单位 |
-| m² | 平方米 | 单次清扫面积覆盖 |
-| mAh / Wh | 电池容量 | 续航能力指标 |
-| Obstacle Avoidance | 避障 | 识别并避开电线/袜子/宠物粪便等障碍物 |
-| Carpet Boost | 地毯增压 | 识别地毯后自动增强吸力 |
-| Multi-Floor | 多楼层 | 保存多张地图，自动识别楼层 |
+| Navigation | localization, coverage, route efficiency | Test by room layout, obstacles and repeated runs |
+| Cleaning | debris pickup, edge cleaning, hair handling | Use standardized debris, floor and moisture conditions |
+| Mopping | stain removal, water use, carpet handling | Separate pad/roller design from software behavior |
+| Perception | obstacle detection, classification, avoidance | Distinguish sensing hardware from actual avoidance performance |
+| Docking | docking success, empty/wash/dry effectiveness | Include dirty conditions and repeated cycles |
+| Reliability | stuck rate, missed tasks, component failures | Measure over repeated autonomous cycles |
+| UX | setup, map editing, scheduling, maintenance | Include app and physical maintenance workflow |
+| Economics | street price, consumables, service burden | Compare total ownership cost, not only robot price |
 
-## Notation
+> Pa、DPI-like component specifications, sensor counts and advertised AI features must not be treated as direct system-performance equivalents. Test conditions and workload must be stated.
 
-- **Suction power**: `Pa` (Pascal)，常见范围 2000–22000 Pa
-- **Battery**: `mAh` 或 `Wh`，常见范围 3200–6400 mAh
-- **Coverage**: `m²`，单次清扫面积
-- **Noise**: `dB(A)`，工作面噪声
-- **End of Life**: `[EOL]` or `†`；新产品：`🆕`
-- **Product names**: 使用官方型号 — `X40 Ultra`、`S8 MaxV`、`Qrevo Master`
-- **File names**: `公司名_Brand_报告类型_年份.md`
-- **First mention**: `中文官方名（English Name）`；此后使用上下文合适的简称
+## 7. Technology Questions
 
-## Key Players (2026)
+### Core Technology
+- Which navigation architecture is used and what limits its operating envelope?
+- How are coverage planning, obstacle avoidance and recovery coupled?
 
-| Player | Chinese Name | Role |
-|---|---|---|
-| Roborock | 石头科技 | Market Leader (premium segment) |
-| Ecovacs | 科沃斯 | Challenger (broad portfolio) |
-| Dreame | 追觅科技 | Challenger (tech-driven) |
-| iRobot | — | Legacy / Declining |
-| Narwal | 云鲸 | Niche (mopping-first) |
-| Xiaomi | 小米 | Value Leader |
-| Samsung | 三星 | Niche (premium, Jet Bot series) |
-| SharkNinja | — | Niche (mid-range, US market) |
+### Hardware
+- How are drive, brush, fan, pump and mopping mechanisms architected?
+- What design choices determine cleaning performance and energy consumption?
+
+### Sensors & Control
+- Which sensors are used for localization, obstacle avoidance, cliff detection and surface recognition?
+- Which signals affect control decisions versus simple monitoring?
+
+### Algorithms / Software
+- How are maps built, segmented and persisted?
+- How are route planning, obstacle classification and task recovery implemented?
+
+### Materials / Environment
+- How do floor type, carpet, thresholds, hair and moisture affect performance?
+- How do brush, filter and mop materials affect service intervals?
+
+### Manufacturing / Reliability
+- How are dust/water paths, sealing, motors, pumps and docking interfaces designed for repeated cycles?
+- Which modules are consumable, serviceable or high-risk failure points?
+
+## 8. Industry Media & Data Sources
+
+1. Official manufacturer documentation and service information
+2. Regulatory / certification databases
+3. Professional reviews and controlled cleaning tests
+4. Robot-vacuum specialist media and teardown sources
+5. Engineering communities and user reports
+6. Supply-chain sources when independently corroborated
+
+## 9. Terminology
+
+| English | 中文 | Definition | Notes |
+|---|---|---|---|
+| LiDAR SLAM | 激光 SLAM | Laser range sensing combined with localization and mapping | Do not equate sensor presence with navigation quality |
+| vSLAM | 视觉 SLAM | Camera-based visual localization and mapping | Sensitive to lighting / texture |
+| dToF | 直接飞行时间 | Time-of-flight depth measurement | Do not call it structured light by default |
+| LDS | 激光测距系统 | Laser distance sensing, often used in rotating LiDAR assemblies | Naming varies by vendor |
+| Obstacle Avoidance | 避障 | Detecting and avoiding objects during motion | Requires sensing + perception + planning + control |
+| Base Station | 基站 | Dock providing charging and optional maintenance functions | Function set varies by model |
+| Auto-Empty | 自动集尘 | Transfers dust from robot to station | Effectiveness depends on airflow/path design |
+| Mop Lifting | 拖布抬升 | Raises mop assembly when carpet is detected | Hardware and control both matter |
+
+## 10. Notation & Units
+
+- Cleaning area: `m²`
+- Suction pressure: `Pa` — treat as a vendor/component metric, not a standalone cleaning-performance metric
+- Battery energy: `Wh`; capacity may also be reported as `mAh` with voltage context
+- Noise: `dB(A)`
+- Water volume: `mL` / `L`
+- Navigation / sensor distances: `mm` / `m`
+
+## 11. Key Players
+
+| Player | Chinese Name | Role | Main Products |
+|---|---|---|---|
+| Roborock | 石头科技 | Premium leader / major player | S, Qrevo and related systems |
+| Ecovacs | 科沃斯 | Major player | DEEBOT |
+| Dreame | 追觅 | Major player | X, L and related systems |
+| iRobot | — | Established incumbent | Roomba |
+| Narwal | 云鲸 | Mopping-focused player | Freo |
+| Xiaomi | 小米 | Value / ecosystem player | Robot vacuum ecosystem |
+| Samsung | 三星 | Premium niche player | Jet Bot |
+| SharkNinja | — | Major US-market player | Shark robot vacuum lines |
+
+名单用于研究入口，不代表实时市场份额或排名。
+
+## 12. Common Technical Trade-offs
+
+| Trade-off | Option A | Option B | Impact |
+|---|---|---|---|
+| Navigation | LiDAR-heavy | Vision / hybrid | Cost, lighting robustness, obstacle perception |
+| Cleaning | High suction | Lower power / optimized airflow | Pickup vs energy/noise |
+| Mopping | Rotary pads | Roller / vibrating systems | Stain handling vs complexity |
+| Dock | Compact | Full-service dock | Footprint vs autonomy |
+| Perception | More sensors | Fewer sensors + stronger algorithms | BOM vs software complexity |
+| Battery | Larger | Smaller / faster charging | Runtime vs weight / charge time |
+
+## 13. Research Boundaries
+
+```text
+Home Environment
+      ↓
+Perception / Localization
+      ↓
+Mapping / Planning
+      ↓
+Motion + Cleaning Actuation
+      ↓
+Cleaning Result
+      ↓
+Docking / Maintenance
+      ↓
+User Outcome / Ownership Cost
+```
+
+Adjacent domains such as generic batteries, motors, semiconductor components and cloud infrastructure should be treated as supporting technologies unless they materially change product capability.
+
+## 14. Knowledge Map
+
+```text
+Navigation
+├── Localization / SLAM
+├── Mapping / Planning
+└── Recovery
+
+Cleaning
+├── Vacuum / Airflow
+├── Brush / Hair Handling
+└── Mopping / Water Management
+
+Perception & Control
+├── Sensors
+├── Obstacle Avoidance
+└── Firmware
+
+Dock
+├── Auto-Empty
+├── Mop Washing / Drying
+└── Water Management
+
+Software
+└── App / Map / Cloud / OTA
+```
+
+## 15. Progressive Knowledge Build-Up
+
+```text
+domain.md
+   ↓
+technology-model.md
+   ↓
+knowledge modules
+   ↓
+product reports / validation
+   ↓
+update technical benchmarks and failure modes
+```
+
+Promote only reusable and sufficiently validated information into long-term knowledge.
+
+## Research Status
+
+- Domain Model: Active
+- Technology Model: Active
+- Knowledge Coverage: Core subsystems covered; continue deepening perception, actuation and reliability as needed.
