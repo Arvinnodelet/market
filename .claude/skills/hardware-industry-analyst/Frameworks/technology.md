@@ -4,7 +4,7 @@
 
 Evaluate the technical architecture, innovation level, manufacturing feasibility, reliability, scalability, and competitive advantages of a hardware product's subsystems. Identify engineering tradeoffs — not just list specifications.
 
-> 💡 本文件定义 **如何评估**（评估维度、输出模板）。**评估什么**（具体子系统）由 `Domains/<domain>/technology.md` 定义。
+> 💡 本文件定义 **如何评估**（评估维度、输出模板）。**评估什么**（具体子系统）由 `Domains/<domain>/technology-model.md` 定义。
 
 ---
 
@@ -15,7 +15,7 @@ Evaluate the technical architecture, innovation level, manufacturing feasibility
 对于每个子系统，评估以下维度：
 
 | Criterion | Weight | What to Assess |
-|---|---|---|
+|---|---:|---|
 | **Performance** | 30% | Raw metrics vs segment peers at same price |
 | **Innovation** | 20% | Truly novel? Self-developed? Industry-first? |
 | **Reliability** | 20% | Field failure rate, known issues, design robustness |
@@ -50,7 +50,7 @@ Evaluate the technical architecture, innovation level, manufacturing feasibility
 
 ```
 ### Subsystem Assessments
-(substitute actual subsystem names from domain technology.md)
+(substitute actual subsystem names from domain technology-model.md)
 Subsystem A:    [Leading / Competitive / Behind — with specifics]
 Subsystem B:    [Leading / Competitive / Behind — with specifics]
 Subsystem C:    [Leading / Competitive / Behind — with specifics]

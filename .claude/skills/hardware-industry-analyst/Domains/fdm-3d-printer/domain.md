@@ -6,11 +6,7 @@
 - **Scope:** Consumer / Prosumer / Professional Desktop
 - **Primary Focus:** Product, Technology, Ecosystem, Manufacturing, Reliability
 
----
-
 ## 1. Domain Definition
-
-### Definition
 
 FDM/FFF 通过将热塑性聚合物加热至可流动状态，并按照数字模型生成的路径逐层沉积，形成三维实体。
 
@@ -37,8 +33,6 @@ FDM/FFF 通过将热塑性聚合物加热至可流动状态，并按照数字模
 - SLS / SLM / DMLS 等粉末床及金属增材制造
 - 纯 CAD / 建模软件研究
 - 与 FDM 无关的通用机器人、视觉或运动控制市场
-
----
 
 ## 2. Product Taxonomy
 
@@ -75,8 +69,6 @@ FDM/FFF 通过将热塑性聚合物加热至可流动状态，并按照数字模
 
 > 产品分类回答“市场上有哪些产品”；Motion、Extrusion、Thermal、Sensors 等属于技术分类，不应与产品层级混为一谈。
 
----
-
 ## 3. Users & Use Cases
 
 | User | Need | Typical Workflow | Purchase Driver | Pain Point |
@@ -87,8 +79,6 @@ FDM/FFF 通过将热塑性聚合物加热至可流动状态，并按照数字模
 | Engineer | 功能验证、工程材料 | CAD → 参数化切片 → 打印 → 测试 | 精度、材料能力 | 热管理、翘曲、稳定性 |
 | Small Business | 小批量生产 | 批量切片 → 多机打印 → 质检 | Uptime、吞吐、成本 | 维护、停机 |
 | Print Farm | 高利用率 | 任务调度 → 多机生产 → 远程监控 | Fleet、自动化、可靠性 | 故障恢复、人工介入 |
-
----
 
 ## 4. Domain Workflow
 
@@ -116,8 +106,6 @@ Inspection / Calibration / Feedback
 
 该流程用于定位研究问题：任何产品能力都应尽量落到具体流程节点、硬件、控制、算法、软件或材料机制上。
 
----
-
 ## 5. Key Technology / Subsystems
 
 | Order | Subsystem | What It Does | Key Metrics | Knowledge Module |
@@ -132,11 +120,9 @@ Inspection / Calibration / Feedback
 | 8 | Electronics | 执行计算、驱动和通信 | MCU, SoC, drivers, interfaces | `electronics.md` |
 | 9 | Control | 将测量转化为控制动作 | loop response, stability, feedback | `motion-control.md`, `control-system.md` |
 | 10 | Algorithms | 补偿动态、几何和打印误差 | shaping, pressure advance, calibration | `algorithms.md`, `calibration-algorithms.md` |
-| 11 | Firmware / Software | 连接用户工作流与机器执行 | compatibility, OTA, UX, cloud | `firmware.md`, `software.md`, `slicer.md` |
+| 11 | Firmware / Software | 连接用户工作流与机器执行 | compatibility, OTA, UX, cloud | `firmware.md`, `software.md` |
 | 12 | Materials | 决定打印窗口与最终性能 | temperature, shrinkage, moisture, strength | `materials.md` |
 | 13 | Reliability / Service | 保证长期稳定运行 | failure rate, recovery, maintenance | `reliability.md` |
-
----
 
 ## 6. Domain-Specific Benchmarks
 
@@ -265,8 +251,6 @@ Cross-product comparison should standardize, where possible:
 
 Do not infer overall machine capability from a single headline number such as 600 mm/s, 30 mm³/s or nozzle temperature.
 
----
-
 ## 7. Technology Questions
 
 ### Core Technology
@@ -315,8 +299,6 @@ Do not infer overall machine capability from a single headline number such as 60
 - What are the dominant field failure modes?
 - How does the machine recover from failed or interrupted prints?
 
----
-
 ## 8. Industry Media & Data Sources
 
 ### Tier 1 — Primary
@@ -357,8 +339,6 @@ Do not infer overall machine capability from a single headline number such as 60
 
 Search-engine results should be treated as **discovery mechanisms**, not automatically as final evidence.
 
----
-
 ## 9. Terminology
 
 | Term | Meaning |
@@ -377,8 +357,6 @@ Search-engine results should be treated as **discovery mechanisms**, not automat
 | Pressure Advance | Compensation for extrusion pressure dynamics |
 | Bed Mesh | Measured representation of build-surface height variation |
 | Multi-Material | Printing workflow using multiple materials rather than only multiple colors |
-
----
 
 ## 10. Notation & Units
 
@@ -405,8 +383,6 @@ Search-engine results should be treated as **discovery mechanisms**, not automat
 - **mm³/s** is a better indicator of extrusion capability but still depends on material, temperature and pressure.
 - **DPI-like concepts should not be imported from other printing technologies without physical equivalence.**
 - Accuracy and repeatability must not be treated as interchangeable.
-
----
 
 ## 11. Key Players
 
@@ -435,29 +411,19 @@ Search-engine results should be treated as **discovery mechanisms**, not automat
 
 When researching a company, separate **company-level positioning** from individual product-level capability.
 
----
-
 ## 12. Common Technical Trade-offs
 
 | Trade-off | Benefit | Cost / Risk |
 |---|---|---|
 | Higher speed vs quality | Shorter cycle time | vibration, ringing, thermal / extrusion limits |
-| Higher acceleration vs moving mass | Better productivity | resonance, structural load |
-| Larger nozzle vs detail | Higher flow | lower feature resolution |
-| Higher temperature vs material range | More materials | thermal degradation / safety complexity |
-| Enclosure vs accessibility | Better thermal environment | cost, heat, maintenance difficulty |
-| Direct drive vs moving mass | Better flexible-filament control | heavier toolhead |
-| Multi-material vs simplicity | More material combinations | purge waste, complexity, failure modes |
-| More sensors vs simplicity | Better automation / observability | cost, integration and calibration complexity |
-| Vision monitoring vs basic camera | Better failure detection | compute, dataset and false-positive challenges |
-| Closed-loop control vs open-loop | Better disturbance compensation | sensors, control complexity and cost |
-| Cloud integration vs local control | Better fleet / UX | connectivity and privacy dependency |
-
----
+| Higher flow vs thermal margin | Higher productivity | incomplete melting, pressure instability |
+| Larger build volume vs rigidity | More application space | frame stiffness, mass, cost |
+| Open architecture vs integration | Modularity, lower lock-in | more configuration burden |
+| Automation vs complexity | Lower user effort | sensors, software and failure modes |
+| Multi-material vs waste | More capability | purge waste, mechanism complexity |
+| High-temperature capability vs cost | Engineering materials | chamber, heater, sealing, component cost |
 
 ## 13. Research Boundaries
-
-### End-to-End Causal Boundary
 
 ```text
 Digital Model / CAD
@@ -466,7 +432,7 @@ Slicer / Toolpath
         ↓
 Motion Planning
         ↓
-Motion + Extrusion + Thermal Control
+Motion + Extrusion + Thermal
         ↓
 Material Deposition
         ↓
@@ -479,7 +445,7 @@ Mechanical / Functional Performance
 User / Production Outcome
 ```
 
-### Capability Boundary
+Use the following capability chain to avoid collapsing machine specifications into application claims:
 
 ```text
 Machine Capability
@@ -493,155 +459,36 @@ Part Capability
 Application / Production Capability
 ```
 
-Research should avoid jumping directly from a machine specification to a production conclusion without validating the intermediate layers.
-
-### Out-of-domain Boundary
-
-If a research question becomes primarily about CAD modeling, industrial polymer chemistry, general-purpose robotics, or non-FDM additive manufacturing, explicitly mark the boundary and avoid silently expanding the domain.
-
----
-
 ## 14. Knowledge Map
 
 ```text
-FDM / FFF Domain
-│
-├── Core Technology
-│   └── Printing Principle
-│
-├── Hardware
-│   ├── Motion System
-│   ├── Mechanical Structure
-│   ├── Extrusion System
-│   ├── Hotend
-│   ├── Thermal System
-│   ├── Build Platform
-│   └── Electronics
-│
-├── Sensors
-│   ├── Position / Motion
-│   ├── Bed / Z
-│   ├── Filament
-│   ├── Thermal
-│   └── Vision / Ranging
-│
+Printing Principle
+├── Motion System
+├── Extrusion System
+├── Hotend / Thermal System
+├── Mechanical Structure
+├── Build Platform
+├── Sensors / Vision
+├── Electronics
 ├── Control
-│   ├── Motion Control
-│   ├── Thermal Control
-│   └── System Feedback
-│
-├── Algorithms
-│   ├── Input Shaping
-│   ├── Pressure Advance
-│   ├── Flow Calibration
-│   ├── Bed Mesh / Z Offset
-│   └── Failure Detection
-│
+├── Algorithms / Calibration
 ├── Firmware / Software
-│   ├── Firmware
-│   ├── Slicer
-│   ├── Device Software
-│   └── Cloud / Fleet
-│
 ├── Materials
-│   ├── Commodity Materials
-│   ├── Flexible Materials
-│   └── Engineering Materials
-│
-└── Reliability / Manufacturing
+├── Reliability
+└── Manufacturing
 ```
-
-### Key Causal Chains
-
-```text
-Mechanical Structure
- → Motion Dynamics
- → Resonance
- → Input Shaping
- → Surface Quality
-```
-
-```text
-Material
- → Temperature / Rheology
- → Extrusion Stability
- → Volumetric Flow
- → Layer Quality
-```
-
-```text
-Sensor
- → Measurement
- → Algorithm
- → Parameter / Control Action
- → Machine Behavior
-```
-
-```text
-Firmware / Software
- → Toolpath / Control
- → Hardware Execution
- → Printed Part
- → User Outcome
-```
-
-These chains should guide both technical research and evidence collection.
-
----
 
 ## 15. Progressive Knowledge Build-Up
 
-When a domain is insufficiently understood, build knowledge in the following order:
+Start with the causal chain before drilling into individual components:
 
-### Level 1 — Product Recognition
+1. Printing principle
+2. Motion + extrusion + thermal system
+3. Mechanical structure and build platform
+4. Sensors + control + algorithms
+5. Firmware + software workflow
+6. Materials + process window
+7. Reliability + manufacturing
+8. Product / competitive implications
 
-Identify major product categories, architectures, brands and typical specifications.
-
-### Level 2 — System Architecture
-
-Understand the complete machine chain:
-
-```text
-Structure → Motion → Extrusion → Thermal → Sensors → Electronics → Control
-```
-
-### Level 3 — Performance Mechanisms
-
-Understand why speed, quality, material capability and reliability differ between products.
-
-### Level 4 — Algorithm / Software Layer
-
-Understand how calibration, motion compensation, pressure control, vision and software reduce physical limitations.
-
-### Level 5 — Manufacturing / Reliability
-
-Understand BOM, assembly, calibration, serviceability, field failures, supply chain and production economics.
-
-### Level 6 — Strategic System View
-
-Connect:
-
-```text
-Technology
- → Product Architecture
- → User Experience
- → Manufacturing
- → Economics
- → Competitive Position
- → Business Strategy
-```
-
-The goal is not to memorize every component. The goal is to understand the causal relationships that explain product differences.
-
----
-
-## Domain Research Rule
-
-For any FDM product research, the analyst should be able to answer at least four layers:
-
-1. **What does the product claim?**
-2. **What is physically implemented?**
-3. **What evidence validates the claimed capability?**
-4. **What does that capability mean for the user's actual workflow or production outcome?**
-
-If the evidence cannot support the conclusion, label the conclusion as **Reported, Inferred, Estimated, or Unknown** rather than upgrading it to fact.
+The goal is not to maximize the number of files, but to cover the technologies that materially determine product capability.
