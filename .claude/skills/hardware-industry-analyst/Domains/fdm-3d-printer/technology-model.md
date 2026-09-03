@@ -45,7 +45,7 @@ Sensors / Vision / Calibration Feedback
 | Electronics | `electronics.md` | 控制计算、驱动、电源和通信如何组织？ |
 | Control | `motion-control.md`, `control-system.md` | 控制器如何将目标转化为实时执行？ |
 | Algorithms | `algorithms.md`, `calibration-algorithms.md` | 如何补偿共振、压力、几何误差和工艺变化？ |
-| Firmware / Software | `firmware.md`, `software.md`, `slicer.md` | 软件栈如何形成完整工作流？ |
+| Firmware / Software | `firmware.md`, `software.md` | 软件栈如何形成完整工作流？ |
 | Materials | `materials.md` | 材料能力边界在哪里？ |
 | Reliability | `reliability.md` | 长时间运行和异常状态下是否稳定？ |
 
