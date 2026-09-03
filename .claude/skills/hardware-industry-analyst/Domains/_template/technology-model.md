@@ -30,8 +30,6 @@ Sensors / Feedback
 
 说明该领域的主要数据流、控制流和物理过程。
 
----
-
 ## 2. Technology Layers
 
 | Layer | Domain Module | Core Question | Knowledge Module |
@@ -44,11 +42,10 @@ Sensors / Feedback
 | Algorithms | | | |
 | Software | | | |
 | Materials / Consumables | | | |
+| Manufacturing / Service | | | |
 | Reliability | | | |
 
-> Technology Model 回答“技术如何组织和产生能力”；具体技术定义、参数和失效模式进入 `knowledge/`。
-
----
+> Technology Model 回答“技术如何组织和产生能力”；具体技术定义、参数和失效模式进入 `knowledge/`。Manufacturing / Service 用于描述技术如何被装配、校准、维护和规模化实现，不等同于通用制造评估框架。
 
 ## 3. Performance Causal Model
 
@@ -66,8 +63,6 @@ User / Production Outcome
 
 定义该领域最重要的 1–3 条性能因果链。
 
----
-
 ## 4. Key Engineering Models
 
 记录真正用于解释性能差异的公式、物理模型、控制关系或系统约束。
@@ -83,8 +78,6 @@ User / Production Outcome
 
 具体模型的背景知识应链接到对应 `knowledge/*.md`，避免在 Technology Model 中重复完整知识教材。
 
----
-
 ## 5. Subsystem Assessment Map
 
 | Subsystem | Primary Metrics | Secondary Questions | Knowledge |
@@ -95,8 +88,6 @@ User / Production Outcome
 
 这里定义**评估对象与指标入口**；具体评分方法由 `Frameworks/technology.md` 负责。
 
----
-
 ## 6. System Architecture Patterns
 
 记录该领域的主流技术架构及其核心差异。
@@ -105,8 +96,6 @@ User / Production Outcome
 |---|---|---|---|---|
 | | | | | |
 | | | | | |
-
----
 
 ## 7. Automation / Feedback Stack
 
@@ -128,8 +117,6 @@ Machine Response
 
 明确哪些功能只是 monitoring，哪些属于 calibration，哪些真正形成 closed-loop control。
 
----
-
 ## 8. Technical Trade-offs
 
 记录该领域最重要的工程权衡，而不是重复通用评价框架。
@@ -137,8 +124,6 @@ Machine Response
 1. **Tradeoff A vs B** → engineering rationale and impact
 2. **Tradeoff C vs D** → engineering rationale and impact
 3. **Tradeoff E vs F** → engineering rationale and impact
-
----
 
 ## 9. Technology Research Questions
 
@@ -153,8 +138,6 @@ Machine Response
 7. 主要工程 trade-offs 是什么？
 8. 哪些技术差异能够形成可靠的产品竞争差异？
 
----
-
 ## 10. Knowledge Mapping
 
 ```text
@@ -166,6 +149,7 @@ Technology Model
       ├── Control → knowledge/control-system.md
       ├── Algorithms → knowledge/algorithms.md
       ├── Software → knowledge/software.md
+      ├── Manufacturing / Service → knowledge/manufacturing.md
       └── Reliability → knowledge/reliability.md
 ```
 
