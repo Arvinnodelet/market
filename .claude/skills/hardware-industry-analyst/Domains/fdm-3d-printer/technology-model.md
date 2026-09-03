@@ -47,6 +47,7 @@ Sensors / Vision / Calibration Feedback
 | Algorithms | `algorithms.md`, `calibration-algorithms.md` | 如何补偿共振、压力、几何误差和工艺变化？ |
 | Firmware / Software | `firmware.md`, `software.md` | 软件栈如何形成完整工作流？ |
 | Materials | `materials.md` | 材料能力边界在哪里？ |
+| Manufacturing / Service | `manufacturing.md` | 如何装配、校准、测试、维修并稳定量产？ |
 | Reliability | `reliability.md` | 长时间运行和异常状态下是否稳定？ |
 
 ---
@@ -140,6 +141,7 @@ Actual Toolhead Motion
 | Algorithms | compensation effectiveness | input shaping, PA, calibration, detection |
 | Software | workflow quality, automation | slicer, app, cloud, API |
 | Materials | supported material envelope | temperature, chamber, abrasion, moisture |
+| Manufacturing / Service | assembly, calibration, yield, serviceability | DFM, test coverage, modularity |
 | Reliability | uptime, failure rate, serviceability | maintenance and recovery |
 
 ---
@@ -223,6 +225,7 @@ Machine Response
 5. **Automation vs Complexity** — 更多传感器与自动化增加硬件、软件和故障诊断复杂度
 6. **Multi-Material vs Waste** — 自动换料提升便利性，但可能增加 purge、切换时间和材料损耗
 7. **High-Temperature Capability vs Cost** — 更高温度通常需要更高等级热端、热床、腔体和安全设计
+8. **Manufacturing Complexity vs Serviceability** — 更高集成度可减少装配接口，但可能增加维修和模块替换难度
 
 ---
 
@@ -235,4 +238,5 @@ Machine Response
 - 摄像头监控不等于机器视觉闭环。
 - 软件功能、固件功能、云端功能必须分开记录。
 - 材料“支持”应区分官方支持、推荐配置、可打印和稳定量产。
+- 制造能力应区分设计可制造性（DFM）、实际量产良率、校准流程和售后可维修性。
 - 对未知参数保留 `Unknown`，不要用行业常识替代证据。
