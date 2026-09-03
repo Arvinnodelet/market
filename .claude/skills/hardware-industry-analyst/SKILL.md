@@ -1,6 +1,6 @@
 ---
 name: hardware-industry-analyst
-version: 2.2.0
+version: 2.2.1
 description: Analyze consumer hardware products, companies, technologies, ecosystems, competition, markets, manufacturing, and economics across multiple hardware domains.
 triggers:
   - 3D打印
@@ -104,10 +104,14 @@ Report
 |---|---|---|---|
 | `fdm-3d-printer` | 桌面 FDM 3D 打印机 | Desktop FDM 3D Printer | Active |
 | `robot-vacuum` | 扫地机器人 | Robot Vacuum | Active |
-| `laser-engraver` | 激光雕刻机 | Laser Engraver | Active |
-| `pool-robot` | 泳池清洁机器人 | Pool Robot | Active |
-| `lawn-mower` | 割草机器人 | Robot Lawn Mower | Active |
 | `uv-printer` | UV 打印机 | UV Printer | Active |
+| `laser-engraver` | 激光雕刻机 | Laser Engraver | Scaffold |
+| `pool-robot` | 泳池清洁机器人 | Pool Robot | Scaffold |
+| `lawn-mower` | 割草机器人 | Robot Lawn Mower | Scaffold |
+
+Status semantics:
+- **Active** — `domain.md` is sufficiently defined for production research and has a usable Technology Model / Knowledge layer.
+- **Scaffold** — domain entry exists for routing and future expansion, but technical research should first build/extend its Domain Model and Knowledge layer rather than assuming parity with Active domains.
 
 新增硬件品类优先创建 `Domains/<domain>/`，而不是创建新的专项 Skill。最小启动内容是 `domain.md`；`technology-model.md` 和 `knowledge/` 随研究积累。
 
@@ -143,7 +147,7 @@ Report
 
 ### Step 3 — Load Domain Model
 
-必须读取 `domain.md`；存在时按需读取 `technology-model.md` 和 `knowledge/*.md`。缺少知识模块不是错误，可以先通过 WebSearch 建立事实，再把验证过且长期复用的信息沉淀到 Domain knowledge。
+必须读取 `domain.md`；存在时按需读取 `technology-model.md` 和 `knowledge/*.md`。Active Domain 应优先使用已有 Technology Model / Knowledge；Scaffold Domain 不得假设这些文件已经存在，可以先通过 WebSearch 建立事实，再把验证过且长期复用的信息沉淀到 Domain。
 
 ### Step 4 — Read Reference Report (MANDATORY)
 
@@ -322,6 +326,7 @@ WebSearch 主要用于更新、验证和发现变化
 
 | Version | Date | Change |
 |---|---|---|
+| V2.2.1 | 2026-09-03 | Domain lifecycle audit：明确 Active / Scaffold；robot-vacuum 补齐 Technology Model；统一新领域路由规则 |
 | V2.2.0 | 2026-09-02 | Architecture cleanup：统一 Domain technology-model 命名；修复 FDM material 断链；统一 UV control/electronics terminology；UV domain 标记为 Active |
 | V2.1.0 | 2026-09-02 | 升级为研究 + 证据 + 评价体系；Company/Product 结构分离；技术深度动态化；新增 Market/Research/Evidence 体系；取消默认 Buy/Consider/Skip |
 | V2.0.1 | 2026-07-01 | 强制读取已有报告作为格式标尺；增加技术深度约束；禁止 SWOT/emoji/星级评分 |
