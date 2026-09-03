@@ -141,7 +141,23 @@ Printhead
 
 典型基材包括 acrylic、glass、metal、wood、plastic、leather-like materials、coated products 等。研究报告必须说明材料条件。
 
-## 7. Reliability
+## 7. Manufacturing / Service
+
+制造与服务重点：
+
+- Printhead mounting and alignment
+- Ink-fluidic assembly and leak control
+- UV module alignment and thermal management
+- Motion-system assembly and flatness
+- Electrical harnessing and grounding
+- Factory jetting / color / alignment calibration
+- End-of-line print verification
+- Printhead and ink-system serviceability
+- Cleaning, capping and waste-ink service procedures
+
+制造研究必须区分 DFM、实际量产良率、校准流程和售后维修成本；不能仅凭 BOM 估算推导制造能力。
+
+## 8. Reliability
 
 重点失效模式：
 
@@ -156,7 +172,7 @@ Printhead
 | Color drift | Ink / temperature / calibration |
 | Head strike | Incorrect head height / media flatness |
 
-## 8. Benchmarking Rules
+## 9. Benchmarking Rules
 
 跨品牌比较时至少记录：
 
@@ -176,7 +192,7 @@ Printhead
 
 禁止只使用厂商最大 DPI 或最高速度作为性能结论。
 
-## 9. Engineering Questions
+## 10. Engineering Questions
 
 每次 UV Printer 技术研究至少回答：
 
@@ -189,4 +205,4 @@ Printhead
 7. 如何进行 nozzle compensation？
 8. 色彩管理链路在哪里？
 9. 不同材料为什么需要不同参数？
-10. 哪些模块决定 BOM、可靠性和维护成本？
+10. 哪些模块决定 BOM、制造复杂度、可靠性和维护成本？
