@@ -1,6 +1,6 @@
 # <Domain Name> Domain Model
 
-> 新领域模板。复制本目录后，先完成 `domain.md`，再逐步补全 `technology.md` 与 `knowledge/`。Domain Model 定义“研究什么”，Knowledge 定义“深入理解什么”。
+> 新领域模板。复制本目录后，先完成 `domain.md`，再逐步补全 `technology-model.md` 与 `knowledge/`。Domain Model 定义“研究什么”；Technology Model 定义“技术如何组织并产生能力”；Knowledge 定义“深入理解什么”。
 
 ## Metadata
 
@@ -179,7 +179,7 @@ domain.md
    ↓
 first research
    ↓
-technology.md benchmarks
+technology-model.md benchmarks
    ↓
 knowledge modules
    ↓
