@@ -24,6 +24,8 @@ Templates — how to structure output
 Report
 ```
 
+Reference reports are optional side inputs used only for output-style and depth calibration.
+
 ## 2. Layer Responsibilities
 
 | Layer | Question | Contents |
@@ -34,6 +36,7 @@ Report
 | Evidence | Why should this claim be trusted? | source hierarchy, confidence, fact/inference rules |
 | Playbooks | How should a recurring task be executed? | teardown, BOM, competitor comparison, launch, roadmap, supply chain, cost |
 | Templates | How should the result be presented? | company, product, technology, market, competition, ecosystem, financial |
+| Reference Reports | What output standard is useful as a precedent? | optional structure, density, depth, formatting examples |
 
 ## 3. Domain Architecture
 
@@ -141,7 +144,27 @@ Estimate   ≠ Public Data
 Reported   ≠ Confirmed
 ```
 
-## 6. Knowledge Lifecycle
+## 6. Reference Report Policy
+
+Reference reports are **optional**.
+
+Use one when a suitable existing report can improve consistency of presentation, for example:
+
+- chapter organization
+- table density
+- technical decomposition depth
+- ASCII diagrams / matrices
+- parameter presentation
+- Sources formatting
+- overall report depth
+
+Do not use a reference report as a substitute for research. Its facts, numbers and conclusions must be independently verified before reuse.
+
+If no suitable report exists, proceed directly with Frameworks, Domain Model, Technology Model, Knowledge, Evidence and Templates. Do not force cross-domain report matching merely to obtain a reference.
+
+If the user explicitly specifies a report as a reference, read it and use it only for the requested comparison of structure, depth or presentation unless the user separately asks to investigate its factual claims.
+
+## 7. Knowledge Lifecycle
 
 ```text
 Research
@@ -161,7 +184,7 @@ Future Research
 
 Only stable and sufficiently verified information should be promoted into long-term Domain knowledge. Temporary prices, promotions and unverified speculation should remain research evidence rather than permanent knowledge.
 
-## 7. Design Principle
+## 8. Design Principle
 
 The system standardizes **how research is performed**, not the exact content of every industry.
 
@@ -180,8 +203,17 @@ Technology Model
 Knowledge
 = What each technology actually is
 
+Evidence
+= Why a claim can be trusted
+
+Playbook
+= How to execute a recurring analysis task
+
 Template
 = How findings are presented
+
+Reference Report
+= Optional precedent for output style / depth
 ```
 
 That makes the same Skill extensible from:
