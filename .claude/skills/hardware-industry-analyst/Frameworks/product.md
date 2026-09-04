@@ -1,80 +1,89 @@
-# Product Research & Analysis Framework
+# Product Research & Analysis Framework v3
 
 ## Objective
 
-研究并评价单个硬件产品，回答四个核心问题：
+研究单个硬件产品，不停留在“参数 + 功能”层面，而是回答：
 
-1. 它是什么、面向谁、在产品线中扮演什么角色？
-2. 它如何工作，核心技术和子系统如何实现？
-3. 它的用户价值、制造逻辑和经济性如何？
-4. 与直接竞品相比，它的技术、产品和战略位置是什么？
+1. 产品解决什么问题，服务谁，在产品组合中扮演什么角色？
+2. 系统如何工作，哪些技术共同形成核心能力？
+3. 核心能力如何转化为用户价值、经济性和制造能力？
+4. 与竞品相比，差异来自哪里，是否可复制？
+5. 当前能力边界和瓶颈是什么，下一步可能如何演进？
 
-本框架先建立事实与证据，再形成评价。购买建议不是默认输出，只有用户明确要求时才加入。
+**核心原则：Specification ≠ Capability ≠ User Value ≠ Competitive Advantage。**
 
 ---
 
 # 1. Product Definition & Positioning
 
-| Attribute | Data | Evidence / Source | Confidence |
+建立事实表，并标记 Evidence / Confidence。
+
+| Attribute | Data | Evidence | Confidence |
 |---|---|---|---|
 | Manufacturer | | | |
 | Product / Model | | | |
 | Series / Tier | | | |
-| MSRP | | | |
-| Street Price | | | |
+| MSRP / Street Price | | | |
 | Release Date | | | |
-| Status | Active / EOL / Announced | | |
+| Status | | | |
 | Target User | | | |
 | Primary Use Cases | | | |
-| Predecessor | | | |
-| Successor | | | |
+| Predecessor / Successor | | | |
 
-### Positioning Questions
+### 必须回答
 
-- 产品解决什么问题？
+- 产品解决的核心问题是什么？
+- 为什么公司在这个时间推出它？
 - 与同品牌其他产品的边界是什么？
-- 它位于入门、中端、高端还是专业市场？
-- 定价是否与其性能、功能、生态和品牌定位匹配？
+- 定位由价格、性能、体验、生态还是材料/工艺能力决定？
 
 ---
 
-# 2. Product Portfolio Role
-
-分析该产品在公司产品矩阵中的角色，而不是孤立评价单品。
+# 2. Portfolio Role
 
 | Dimension | Analysis |
 |---|---|
 | Product Line | |
 | Price Position | |
 | Performance Position | |
-| Feature Position | |
 | Technology Role | |
-| Platform / Shared Architecture | |
+| Shared Platform | |
+| Shared Components | |
 | Ecosystem Role | |
-| Cannibalization Risk | |
 | Upgrade Path | |
+| Cannibalization Risk | |
+
+必须判断该产品是：**旗舰技术展示 / 平台产品 / 规模产品 / 入门获客 / 特定场景产品 / 成本优化产品**，或组合角色。
 
 ---
 
-# 3. Users & Use Cases
+# 3. User Problem & Workflow
 
-| User Group | Core Need | Typical Workflow | Product Fit | Evidence |
-|---|---|---|---|---|
-| | | | | |
+```text
+User Problem
+    ↓
+Current Workflow / Pain Point
+    ↓
+Product Intervention
+    ↓
+New Capability
+    ↓
+Workflow Improvement
+    ↓
+Economic / Experience Value
+```
 
-区分：
-- Primary user
-- Secondary user
-- Professional / commercial user
-- Edge cases
+| User | Problem | Workflow | Product Capability | Value | Evidence |
+|---|---|---|---|---|---|
+| | | | | | |
 
-重点分析用户为什么选择该产品，而不是仅描述“适合谁”。
+不要只写“适合创客/工程师”，必须解释用户为什么需要该能力。
 
 ---
 
-# 4. Specifications
+# 4. Core Specifications
 
-建立完整参数表。公开参数与推导参数分开。
+公开参数、实测参数和推导参数分开。
 
 | Category | Parameter | Value | Source | Status |
 |---|---|---|---|---|
@@ -86,281 +95,374 @@
 | Materials | | | | |
 | Software | | | | |
 
-不要为了填满表格而猜测缺失参数；未知写 `Unknown / 未公开`。
+缺失参数写 `Unknown / 未公开`，禁止为了完整性猜测。
 
 ---
 
 # 5. System Architecture
 
-使用领域技术模型建立系统架构图。
+先建立系统模型，再写章节。
 
 ```text
-                 ┌──────────────────────┐
-                 │      User Input      │
-                 └──────────┬───────────┘
-                            ↓
-                 ┌──────────────────────┐
-                 │ Software / Control   │
-                 └──────────┬───────────┘
-                            ↓
-          ┌─────────────────┼─────────────────┐
-          ↓                 ↓                 ↓
-      Sensing           Actuation          Processing
-          ↓                 ↓                 ↓
-          └─────────────────┼─────────────────┘
-                            ↓
-                 ┌──────────────────────┐
-                 │ Physical Output     │
-                 └──────────────────────┘
+User / Input
+     ↓
+Software / Workflow
+     ↓
+Planning / Algorithms
+     ↓
+Control
+     ↓
+┌──────────┬──────────┬──────────┐
+│ Sensing  │Actuation │Processing│
+└────┬─────┴────┬─────┴────┬─────┘
+     └──────────┼──────────┘
+                ↓
+          Physical Process
+                ↓
+             Output
+                ↓
+             Feedback
 ```
 
-根据具体领域替换模块，并说明数据流、能量流、控制流和关键接口。
+针对具体 Domain 替换模块，并解释：
+- 数据流
+- 能量流
+- 控制流
+- 关键接口
+- 闭环位置
 
 ---
 
-# 6. Core Subsystems
+# 6. Product Capability Map
 
-从领域技术模型中选择与本产品相关的核心子系统。
+这是 v3 的核心章节。必须把组件和参数上升为系统能力。
 
-| Subsystem | Key Components | Key Parameters | Self-developed / Outsourced | Competitive Position | Evidence |
-|---|---|---|---|---|---|
-| | | | | | |
-
-对真正影响产品性能的子系统进行深拆，避免平均用力。
-
-### Recommended Deep-Dive Structure
-
-#### 6.x Technology / Subsystem Name
-
-1. Working principle
-2. System architecture
-3. Hardware implementation
-4. Key components and materials
-5. Installation / mechanical arrangement
-6. Control / algorithm
-7. Key parameters
-8. Reliability and failure modes
-9. Manufacturing implications
-10. Cost implications
-11. Evolution across generations
-12. Cross-model comparison
-13. Competitor architecture comparison
-14. Advantages
-15. Limitations
-
----
-
-# 7. Software / Algorithms
-
-| Layer | Implementation | Capability | Proprietary? | Evidence |
+| Technology / Subsystem | Mechanism | System Capability | Product Effect | User Value |
 |---|---|---|---|---|
-| Firmware | | | | |
-| Control | | | | |
-| Algorithm | | | | |
-| Mobile / Desktop App | | | | |
-| Cloud | | | | |
-| API / Integration | | | | |
+| | | | | |
 
-重点分析软件是否改变硬件能力，而不是仅列出 App 功能。
+推荐使用：
+
+```text
+Component
+  ↓
+Subsystem
+  ↓
+Technology Cluster
+  ↓
+System Capability
+  ↓
+Workflow Capability
+  ↓
+Product Positioning
+```
+
+禁止把单个传感器、芯片、算法直接称为“核心能力”，除非它在系统层形成可验证能力。
 
 ---
 
-# 8. Materials / Consumables
+# 7. Core Technology System
 
-适用于存在耗材、介质或材料的硬件品类。
+不要按零件目录平铺。优先选择 **2–4 个 Technology Clusters**。
 
-| Material / Consumable | Compatibility | Performance | Cost | Lock-in | Source |
+每个 Cluster 必须回答：
+
+1. Problem
+2. Legacy Limitation
+3. Architecture
+4. Mechanism
+5. Hardware / Sensors / Actuators
+6. Software / Algorithms
+7. Closed Loop
+8. Key Parameters
+9. Capability Created
+10. Product / User Effect
+11. Reliability / Failure Modes
+12. Trade-offs
+13. Competitor Difference
+14. Copyability / Defensibility
+15. Next Constraint
+16. Strategic Significance
+
+推荐结构：
+
+```text
+Problem
+  ↓
+Technology Cluster
+  ↓
+Mechanism / Implementation
+  ↓
+Closed Loop
+  ↓
+Capability
+  ↓
+Product Effect
+  ↓
+User / Economic Value
+  ↓
+Competitive Difference
+  ↓
+Strategic Significance
+```
+
+### Core Technology Selection Criteria
+
+优先选择满足多个条件的技术：
+- 解决重大产品痛点
+- 显著改变性能、质量、可靠性、成本或体验
+- 跨多个子系统协同
+- 形成可复用平台能力
+- 明显影响竞品差异
+- 存在较高复制门槛
+- 决定未来产品演进空间
+
+---
+
+# 8. Software / Algorithms
+
+| Layer | Implementation | What It Senses / Computes | Capability | Hardware Effect | Evidence |
+|---|---|---|---|---|---|
+| Firmware | | | | | |
+| Control | | | | | |
+| Algorithm | | | | | |
+| App | | | | | |
+| Cloud | | | | | |
+
+重点判断软件是否真正改变硬件能力：
+
+```text
+Sensor → Estimation → Algorithm → Control → Actuator → Physical Result
+```
+
+若视觉/AI只做告警，不应描述为自动控制；若算法没有改变执行参数，也不能直接称为闭环。
+
+---
+
+# 9. Materials / Consumables / Process
+
+适用时分析：
+
+| Material | Machine Requirement | Validated Workflow | Performance | Cost | Lock-in | Evidence |
+|---|---|---|---|---|---|---|
+
+必须区分：**Supported ≠ Validated ≠ Optimized。**
+
+---
+
+# 10. UX & Workflow
+
+| Dimension | Evidence | Mechanism | User Effect | Assessment |
+|---|---|---|---|---|
+| Setup | | | | |
+| Calibration | | | | |
+| First Use | | | | |
+| Operation | | | | |
+| Error Recovery | | | | |
+| Maintenance | | | | |
+| Software | | | | |
+| Support | | | | |
+
+重点分析自动化如何减少用户工作量，而非简单罗列 App 功能。
+
+---
+
+# 11. Reliability & Service
+
+| Failure / Risk | Physical Mechanism | Detection | Mitigation | User Impact | Evidence / Confidence |
 |---|---|---|---|---|---|
 | | | | | | |
 
-对于不适用的产品，删除该章节或明确说明 N/A。
+分析：wear parts、热/机械/电应力、校准漂移、维护周期、故障恢复、维修性、备件、环境敏感性。
 
 ---
 
-# 9. User Experience
+# 12. Manufacturing & Economics
 
-| Dimension | Assessment | Evidence |
+### Manufacturing
+
+| Dimension | Analysis | Confidence |
 |---|---|---|
-| Out-of-Box Experience | | |
-| Setup / Calibration | | |
-| First Use | | |
-| Software Experience | | |
-| Noise / Comfort | | |
-| Maintenance | | |
-| Reliability | | |
-| Troubleshooting | | |
-| Support | | |
-| Documentation | | |
-
-重点区分厂商设计意图与用户实际体验。
-
----
-
-# 10. Reliability & Service
-
-分析：
-
-- Known failure modes
-- Wear parts
-- Maintenance intervals
-- Calibration drift
-- Thermal / mechanical / electrical stress
-- Serviceability
-- Spare parts availability
-- Warranty / support
-- Community repairability
-
-| Failure / Risk | Mechanism | Impact | Detection | Mitigation | Evidence / Confidence |
-|---|---|---|---|---|---|
-| | | | | | |
-
----
-
-# 11. Manufacturing Perspective
-
-| Dimension | Assessment | Confidence |
-|---|---|---|
-| Estimated BOM | | |
+| BOM Structure | | |
 | Major Cost Drivers | | |
 | Assembly Complexity | | |
-| Harness / Wiring Complexity | | |
-| Calibration Steps | | |
+| Wiring / Harness | | |
+| Calibration | | |
 | DFM / DFA | | |
+| Automation Potential | | |
 | Serviceability | | |
 | Supply Chain Risk | | |
-| Manufacturing Scale | | |
 
-BOM、毛利和成本必须标记为 `Estimated`，除非有公开财务或供应链证据。
+### Economics
 
----
-
-# 12. Cost & Economics
-
-区分消费者价格与企业经济性。
-
-| Item | Estimate / Data | Basis | Confidence |
+| Item | Value / Estimate | Basis | Confidence |
 |---|---|---|---|
 | MSRP | | | |
 | Street Price | | | |
 | Estimated BOM | | | |
 | Consumable Cost | | | |
 | Service Cost | | | |
-| Upgrade Cost | | | |
-| Estimated Gross Margin | | | |
+| Labor Intervention | | | |
+| Cost per Workflow / Part | | | |
 
-如果缺少可靠数据，不计算伪精确的毛利率。
+所有 BOM / 毛利 / 成本模型必须明确 `Estimated` 及假设。
 
 ---
 
 # 13. Competitive Benchmark
 
-选择 2–4 个真正直接的竞品。优先同价位、同用户、同工作流，而不是仅凭品牌知名度选择。
+选择 2–4 个真正直接竞品。
 
-| Dimension | This Product | Competitor A | Competitor B | Competitor C |
-|---|---|---|---|---|
-| Price | | | | |
-| Core Spec | | | | |
-| Key Technology | | | | |
-| Setup / Calibration | | | | |
-| Software | | | | |
-| Materials / Consumables | | | | |
-| Ecosystem | | | | |
-| Maintenance | | | | |
-| Service | | | | |
-| Estimated Cost | | | | |
+| Dimension | Product | Competitor A | Competitor B | Underlying Difference | Capability Effect |
+|---|---|---|---|---|---|
+| Architecture | | | | | |
+| Motion / Process | | | | | |
+| Sensing | | | | | |
+| Control | | | | | |
+| Materials | | | | | |
+| Software | | | | | |
+| Ecosystem | | | | | |
+| Reliability | | | | | |
+| Economics | | | | | |
 
-### Competitive Position
+### 必须回答
 
-明确回答：
-
-- 哪些指标领先？
-- 哪些指标只是参数领先但用户价值有限？
-- 哪些地方落后？
-- 差异来自架构、器件、算法、软件、生态还是价格？
+- 差异是什么？
+- 为什么不同？
+- 是否解决同一个问题？
+- 能力差异是什么？
+- Trade-off 是什么？
+- 为什么不能简单复制？
+- 对目标用户是否真的重要？
 
 ---
 
-# 14. Product Evolution
+# 14. Product / Technology Evolution
 
-| Generation | Release | Major Change | Technical Change | Strategic Meaning |
-|---|---|---|---|---|
-| | | | | |
+不要只做发布时间线。
 
-重点判断产品变化是：
+```text
+Previous Limitation
+      ↓
+Evolution Driver
+      ↓
+Technology Change
+      ↓
+New Capability
+      ↓
+Product Effect
+      ↓
+Next Constraint
+```
 
-- incremental upgrade
-- architecture change
-- platform change
-- ecosystem expansion
-- cost-down / manufacturing optimization
+| Generation | Limitation | Technology Change | New Capability | Strategic Meaning | Next Constraint |
+|---|---|---|---|---|---|
+| | | | | | |
+
+判断变化属于：incremental upgrade / architecture change / platform change / ecosystem expansion / cost-down。
 
 ---
 
 # 15. Strategic Assessment
 
-### Product Strengths
+使用：
 
-1.
-2.
-3.
+```text
+Technology Capability
+      ↓
+Product Capability
+      ↓
+Portfolio Role
+      ↓
+Market Position
+      ↓
+Economic Effect
+      ↓
+Competitive Advantage
+      ↓
+Defensibility
+      ↓
+Strategic Option
+```
 
-### Product Weaknesses
-
-1.
-2.
-3.
-
-### Technical Position
-
-Leading / Competitive / Behind，并说明依据。
-
-### User Value
-
-分析性能、体验、生态和价格共同形成的实际价值。
-
-### Manufacturing Position
-
-分析 BOM、装配、校准、供应链和服务能力。
-
-### Competitive Position
-
-说明相对于主要竞品的结构性优势与劣势。
-
-### Strategic Role
-
-说明该产品对公司产品线、技术平台、生态和竞争防御的意义。
-
-### Overall Assessment
-
-用 1–3 个段落给出综合判断，避免空泛总结。
-
-> 购买建议仅在用户明确要求时输出。若需要购买建议，再增加 Buy / Consider / Skip 以及明确的 decision rule。
+必须回答：
+- 建立了什么平台能力？
+- 是否可跨产品复用？
+- 是否改善成本、速度、质量、可靠性或 UX？
+- 是否强化生态或渠道？
+- 是否扩大未来产品可行空间？
+- 优势属于结构性、执行性、暂时性还是易复制？
 
 ---
 
-# 16. Evidence & Confidence
+# 16. Future Outlook
 
-重要结论建议使用以下状态：
+未来不是趋势堆砌，必须由当前瓶颈推导：
 
-| Status | Meaning |
+```text
+Current Capability
+      ↓
+Remaining Bottleneck
+      ↓
+Why It Matters
+      ↓
+Technology Enabler
+      ↓
+Company Existing Capability
+      ↓
+Competitive / Economic Pressure
+      ↓
+Likely Evolution
+      ↓
+Strategic Consequence
+```
+
+每项预测标记：`Fact / Trend / Inference / Scenario / Estimate`。
+
+建议按 Near / Mid / Long term 输出，但不得把推断路线写成公司已确认 roadmap。
+
+---
+
+# 17. Overall Assessment
+
+最终结论必须形成闭环：
+
+```text
+What the company built
+→ Why it works
+→ What capability it creates
+→ Why users care
+→ Why competitors care
+→ Why it is hard to copy
+→ What constraint comes next
+→ Where the product is likely to evolve
+```
+
+避免重复前文的参数和功能列表。
+
+---
+
+# 18. Evidence & Confidence
+
+| Status | Definition |
 |---|---|
-| Confirmed | 官方或一手资料明确确认 |
-| Verified | 多个可靠来源交叉验证 |
-| Reported | 可靠第三方报道，但未被官方确认 |
-| Inferred | 基于结构、照片、拆机、接口或规格推断 |
-| Estimated | 基于计算、行业 benchmark 或成本模型估算 |
-| Unknown | 当前没有足够可靠证据 |
+| Fact | 来源明确陈述 |
+| Verified | 多个可靠来源交叉确认 |
+| Reported | 可靠第三方报告 |
+| Inferred | 工程推理 / 结构证据 |
+| Estimated | 计算或 benchmark 推算 |
+| Assessment | 分析者判断 |
+| Unknown | 证据不足 |
 
-结论不得把 `Inferred / Estimated` 写成 `Confirmed`。
+重要结论必须能够回溯到证据或明确的推理链。
 
 ---
 
-# 17. Sources
+# 19. Sources
 
-每条独立列出来源，优先官方资料、技术文档、用户手册、Wiki、行业媒体、深度评测和工程社区。
+优先：官方产品页、手册、技术文档、软件仓库、release notes、专利、认证、投资者资料；其次是专业评测、拆解、长期测试和工程社区。
 
 ```markdown
 ## Sources
-- [Source description](URL)
 - [Source description](URL)
 ```
