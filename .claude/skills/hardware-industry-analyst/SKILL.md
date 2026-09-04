@@ -1,7 +1,7 @@
 ---
 name: hardware-industry-analyst
-version: 2.2.2
-description: Analyze consumer hardware products, companies, technologies, ecosystems, competition, markets, manufacturing, and economics across multiple hardware domains.
+version: 3.0.0
+description: Evidence-driven hardware industry research and analysis system that converts product, technology, competition, manufacturing, ecosystem, and market evidence into causal, strategic, and future-roadmap conclusions.
 triggers:
   - 3D打印
   - 3D printer
@@ -66,39 +66,126 @@ triggers:
   - Segway Navimow
 ---
 
-# Hardware Industry Analyst
+# Hardware Industry Analyst v3
 
-## 1. Purpose
+## 1. Mission
 
-This skill is a generic hardware research and analysis system for 3D printers, UV printers, laser engravers, robot vacuums, pool robots, lawn mowers, sensors, and other consumer/prosumer hardware.
-
-The system separates these layers:
+This skill is a reusable research and analysis system for consumer/prosumer hardware. Its purpose is not merely to collect specifications, but to explain:
 
 ```text
-Research Process
+What was built
       ↓
-Frameworks  ← how to investigate
+Why it works
       ↓
-Domain      ← what matters in this hardware category
+What capability it creates
       ↓
-Evidence    ← how reliable each claim is
+Why users care
       ↓
-Analysis / Evaluation
+Why competitors care
       ↓
-Report
+Why it is difficult to copy
+      ↓
+What constraint comes next
+      ↓
+Where technology / product / strategy is likely to evolve
 ```
 
-### Core principles
+### Core principle
 
-- Research before evaluation.
-- Frameworks define the investigation skeleton.
-- Domains define the technical model, terminology, taxonomy, workflow, subsystems, and benchmarks.
-- Evidence controls confidence; distinguish fact, verified finding, report, inference, estimate, and unknown.
-- Reference reports are optional style/depth references, not research dependencies or evidence sources.
-- Engineering reasoning is preferred over marketing language.
-- Unknown is an acceptable result; never manufacture specifications.
+**Research completeness is necessary; analytical causality is mandatory.**
 
-## 2. Supported Domains
+A report is incomplete if it lists technologies without explaining their system effect, competitive meaning, or strategic consequence.
+
+---
+
+## 2. Analytical Engine
+
+All major conclusions should follow this causal chain where applicable:
+
+```text
+Evidence
+  ↓
+Fact / Observation
+  ↓
+Mechanism / Cause
+  ↓
+Capability
+  ↓
+Product / User Effect
+  ↓
+Economic Effect
+  ↓
+Competitive Effect
+  ↓
+Strategic Significance
+  ↓
+Future Implication
+```
+
+The analyst must distinguish the following layers:
+
+1. **Fact** — directly stated or directly observed.
+2. **Mechanism** — engineering explanation of how/why the fact produces an effect.
+3. **Capability** — reusable system capability created by the mechanism.
+4. **Product Effect** — measurable or observable product consequence.
+5. **User / Economic Value** — why the effect matters in workflow, cost, quality, time, or adoption.
+6. **Competitive Effect** — how it changes relative position.
+7. **Strategic Significance** — why it matters to the company's long-term position.
+8. **Future Implication** — what constraint or opportunity logically follows.
+
+Never jump directly from a feature to a strategic conclusion without the intermediate reasoning.
+
+---
+
+## 3. Mandatory Analysis Models
+
+Before writing a high-depth report, load the relevant files under `Analysis/`:
+
+- `analysis-model.md` — universal causal reasoning and evidence-to-conclusion model.
+- `technology-analysis.md` — technology cluster, closed-loop, trade-off, and evolution analysis.
+- `future-analysis.md` — bottleneck-driven future analysis.
+
+Additional analysis models may be added for competition, manufacturing, economics, ecosystem, or other recurring reasoning tasks.
+
+### Capability model
+
+Use:
+
+```text
+Component
+  ↓
+Subsystem
+  ↓
+System Capability
+  ↓
+Workflow Capability
+  ↓
+Product Positioning
+```
+
+A component is not automatically a capability. A capability must explain what the integrated system can now do better.
+
+### Defensibility model
+
+When assessing a potential moat:
+
+```text
+Visible Feature
+  ↓
+Underlying Capability
+  ↓
+Complementary Assets
+  ↓
+Replication Difficulty
+  ↓
+Defensibility
+```
+
+Ask why a competitor cannot simply reproduce the visible feature.
+
+---
+
+## 4. Supported Domains
 
 | Domain ID | 中文名 | English | Status |
 |---|---|---|---|
@@ -109,27 +196,29 @@ Report
 | `pool-robot` | 泳池清洁机器人 | Pool Robot | Scaffold |
 | `lawn-mower` | 割草机器人 | Robot Lawn Mower | Scaffold |
 
-Status semantics:
-- **Active** — `domain.md` is sufficiently defined for production research and has a usable Technology Model / Knowledge layer.
-- **Scaffold** — domain entry exists for routing and future expansion, but technical research should first build/extend its Domain Model and Knowledge layer rather than assuming parity with Active domains.
+**Active** means the domain has a usable domain model and knowledge layer. **Scaffold** means routing exists but the technical model should be expanded before assuming parity with Active domains.
 
-新增硬件品类优先创建 `Domains/<domain>/`，而不是创建新的专项 Skill。最小启动内容是 `domain.md`；`technology-model.md` 和 `knowledge/` 随研究积累。
+For a new hardware category, create `Domains/<domain>/` rather than creating another specialized Skill. Minimum content is `domain.md`; add `technology-model.md` and `knowledge/` as reusable knowledge accumulates.
 
-## 3. Research Categories
+---
 
-- Company — 公司能力、产品版图、技术、生态、制造、财务、竞争战略
-- Product — 单品定位、规格、架构、子系统、软件、耗材、体验、制造、成本、竞品、演进
-- Technology — 技术原理、实现、算法、性能、路线、竞品方案、权衡
-- Ecosystem — 软件、耗材、配件、云平台、开放接口、用户社区、锁定效应
-- Competition — 玩家、产品、技术、价格、生态、商业模式、竞争位置
-- Market — 市场定义、规模、需求、区域、竞争、技术、渠道、预测
-- Financial — 收入、利润、成本结构、现金流、估值、经营效率
+## 5. Research Types
 
-## 4. Workflow
+- Company — company capability, portfolio, technology, ecosystem, manufacturing, financials, strategy
+- Product — positioning, architecture, subsystems, software, materials, UX, manufacturing, economics, competition, evolution
+- Technology — principle, architecture, implementation, algorithms, performance, trade-offs, competition, evolution
+- Ecosystem — software, consumables, accessories, cloud, APIs, community, lock-in, monetization
+- Competition — players, products, technology routes, price, ecosystem, manufacturing, business model, competitive position
+- Market — definition, segmentation, demand, scale, regions, channels, competition, technology, forecast
+- Financial — revenue, growth, margin, costs, cash flow, unit economics, valuation, capital efficiency
 
-### Step 1 — Detect Domain + Research Type
+---
 
-优先读取项目级 Domain Configuration；没有明确配置时，根据用户关键词和产品特征判断领域与研究类型。
+## 6. Research Workflow
+
+### Step 1 — Detect scope
+
+Identify domain, research type, time boundary, target company/product, comparison set, and user objective.
 
 ### Step 2 — Load Framework
 
@@ -143,47 +232,54 @@ Status semantics:
 | Market | market + competition |
 | Financial | financial + company |
 
-`technology` 对 Company/Product 仍为强制项，但技术深度根据任务和产品定位动态调整。
+`technology` remains mandatory for Company/Product research, but depth depends on product importance.
 
 ### Step 3 — Load Domain Model
 
-必须读取 `domain.md`；存在时按需读取 `technology-model.md` 和 `knowledge/*.md`。Active Domain 应优先使用已有 Technology Model / Knowledge；Scaffold Domain 不得假设这些文件已经存在，可以先通过 WebSearch 建立事实，再把验证过且长期复用的信息沉淀到 Domain。
+Read `domain.md`. When available, use `technology-model.md` and relevant `knowledge/*.md`.
 
-### Step 4 — Reference Report (OPTIONAL)
+Do not assume Scaffold domains have complete technical knowledge.
 
-如果项目中存在同领域或同报告类型的高质量历史报告，可读取 1 份作为输出格式和分析深度参考。
+### Step 4 — Load Analysis Models
 
-参考报告主要用于：
-- 章节组织
-- 表格密度
-- 技术拆解粒度
-- ASCII 图 / 流程图 / 矩阵的使用方式
-- 参数呈现方式
-- Sources 格式
-- 报告整体深度
+For high-depth work, load the relevant analysis models before drafting conclusions.
 
-参考报告不是研究事实来源，不得直接继承其中的：
-- 结论
-- 参数
-- 市场数据
-- 成本数据
-- 技术判断
-- 未经重新验证的事实
+At minimum for Product/Technology research:
+- causal analysis
+- technology cluster analysis
+- trade-off analysis
+- evolution analysis
 
-如果不存在合适的参考报告，直接使用 Frameworks、Domain Model、Technology Model、Knowledge、Evidence Rules 和 Templates 完成研究，不得为了满足本步骤而强行寻找或读取无关报告。
+For strategic/future sections:
+- future analysis
+- competitive defensibility
+- chapter handoff model
 
-如果用户明确指定某份报告作为参考，则必须读取该报告，并仅将其作为表达方式和深度标准的参考。
+### Step 5 — Reference Report
 
-### Step 5 — Build Evidence Base
+A high-quality historical report may be used as a **benchmark for depth and expression**, especially when the user explicitly identifies it as the reference.
 
-关键事实按以下证据层级处理：
+Use it for:
+- chapter organization
+- analytical depth
+- table density
+- technical decomposition
+- architecture diagrams
+- parameter presentation
+- Sources style
+
+Do not inherit its facts, conclusions, market data, cost data, or technical judgments without re-verification.
+
+### Step 6 — Build Evidence Base
+
+Evidence priority:
 
 ```text
-Official explicit
+Official explicit evidence
       ↓
 Multiple reliable sources
       ↓
-Credible third-party report
+Credible third-party evidence
       ↓
 Engineering inference
       ↓
@@ -192,62 +288,392 @@ Estimate / calculation
 Unknown
 ```
 
-核心架构、传感器配置、材料、价格、发布日期、性能指标、成本等不得仅凭搜索摘要或营销文案直接升级为高置信结论。
+Important architecture, sensors, materials, performance, price, launch date, cost, and financial claims require appropriate evidence quality.
 
-### Step 6 — Analyze
+### Step 7 — Build System Model
 
-明确区分：
-
-- Fact：来源明确陈述
-- Verified：多来源交叉验证
-- Reported：可靠第三方明确报告但尚未充分独立验证
-- Inference：根据结构、照片、拆机、接口、规格等推断
-- Estimate：计算或行业基准估算
-- Assessment：基于证据形成的工程判断
-- Unknown：现有证据无法确定
-
-涉及 BOM、毛利、可靠性、供应链等无法直接验证的数据时，必须写明假设和置信度。
-
-### Step 7 — Generate Report
-
-报告回答三个层次：
+Before writing long prose, map:
 
 ```text
-What is it?
-    ↓
-How does it work / how good is it?
-    ↓
-Why does it matter commercially and competitively?
+Market / User Problem
+      ↓
+Product Architecture
+      ↓
+Subsystems
+      ↓
+Technology Clusters
+      ↓
+System Capabilities
+      ↓
+User Workflow
+      ↓
+Economic / Manufacturing Effects
+      ↓
+Competitive Position
 ```
 
-## 5. Report Structures
+### Step 8 — Analyze
+
+Convert evidence into causal conclusions. Separate facts from inferences and assessments.
+
+### Step 9 — Analyze Evolution
+
+For major technologies and products use:
+
+```text
+Previous Limitation
+      ↓
+Evolution Driver
+      ↓
+Technology Change
+      ↓
+New Capability
+      ↓
+Product Effect
+      ↓
+Next Constraint
+```
+
+### Step 10 — Analyze Future
+
+Use the future model:
+
+```text
+Current State
+      ↓
+Unresolved Problems / Bottlenecks
+      ↓
+Evolution Drivers
+      ↓
+Technology Enablers
+      ↓
+Existing Company Capabilities
+      ↓
+Competitive / Economic Pressure
+      ↓
+Likely Evolution
+      ↓
+Strategic Consequence
+```
+
+Do not turn an inferred roadmap into a confirmed company plan.
+
+### Step 11 — Quality Audit
+
+Before finalizing, verify:
+
+- every major conclusion has evidence or explicit reasoning;
+- technology sections explain capability, not only features;
+- major technologies are grouped into coherent clusters;
+- each major technology includes trade-offs;
+- competitive comparisons explain architectural/capability differences;
+- future outlook is derived from identified bottlenecks and capabilities;
+- facts, reports, inferences, estimates, and assessments are clearly separated;
+- no unsupported precision is introduced;
+- conclusions do not repeat without adding a new analytical layer.
+
+---
+
+## 7. Technology Analysis Rules
+
+### 7.1 Technology Cluster is the default unit
+
+Do not treat every feature as a standalone core technology.
+
+A Technology Cluster integrates related hardware, sensing, actuation, software, algorithms, and control into one system capability.
+
+Recommended structure:
+
+```text
+Problem
+  ↓
+Technology Cluster
+  ├─ Architecture
+  ├─ Hardware
+  ├─ Sensors
+  ├─ Actuators
+  ├─ Software / Algorithms
+  └─ Control
+  ↓
+System Capability
+  ↓
+Product / User Value
+  ↓
+Competitive Advantage
+  ↓
+Strategic Value
+```
+
+### 7.2 Core technology selection
+
+Prioritize technologies that satisfy several of these conditions:
+
+- materially change product capability;
+- solve a major legacy limitation;
+- integrate multiple subsystems;
+- materially affect cost, reliability, throughput, quality, or UX;
+- differentiate the product from competitors;
+- create reusable platform capability;
+- are difficult to reproduce without complementary assets;
+- influence future product evolution.
+
+Do not select a technology only because marketing calls it “new”.
+
+### 7.3 Closed-loop analysis
+
+When feedback is present, explain:
+
+```text
+Sensing
+  ↓
+State Estimation
+  ↓
+Decision / Control
+  ↓
+Actuation
+  ↓
+Physical Result
+  ↓
+Feedback
+```
+
+Identify what is sensed, what is estimated, what is controlled, the actuator, latency, calibration dependency, failure mode, and resulting capability.
+
+### 7.4 Trade-off is mandatory
+
+For each major technology, answer:
+
+- What problem does it solve?
+- What does it make better?
+- What does it make worse?
+- What cost/complexity does it introduce?
+- What new failure modes appear?
+- Why did the company accept the trade-off?
+- Under what market position is the trade-off rational?
+
+### 7.5 Recommended depth
+
+For flagship products or strategically important technologies, normally deep-dive **2–4 Technology Clusters** rather than many shallow features.
+
+Each deep dive should cover, where evidence permits:
+
+1. Problem
+2. Legacy limitation
+3. Architecture
+4. Mechanism
+5. Hardware / sensors / actuators
+6. Software / algorithms
+7. Closed loop
+8. Key parameters
+9. Capability created
+10. Product/user effect
+11. Reliability / failure modes
+12. Trade-offs
+13. Competitor difference
+14. Copyability / defensibility
+15. Next constraint
+16. Strategic significance
+
+---
+
+## 8. Product Capability Analysis
+
+The report must distinguish:
+
+```text
+Specification ≠ Capability ≠ User Value
+```
+
+Example reasoning pattern:
+
+```text
+Higher acceleration
+      ↓
+Motion system + frame + control + vibration compensation
+      ↓
+Higher stable printing throughput
+      ↓
+Shorter job time at acceptable quality
+      ↓
+Higher workflow productivity
+```
+
+Do not claim user value from a specification alone when system integration determines the actual outcome.
+
+---
+
+## 9. Competitive Analysis
+
+Compare architectures and capabilities, not only headline specifications.
+
+For every major difference, ask:
+
+1. What is different?
+2. Why is it different?
+3. What capability does the difference create?
+4. Does the competitor solve the same problem another way?
+5. What are the trade-offs?
+6. Why can one competitor not simply copy the other's visible feature?
+7. Does the difference matter to the target user or only on paper?
+
+Preferred comparison:
+
+| Dimension | Product A | Product B | Underlying difference | Capability effect | Strategic meaning |
+|---|---|---|---|---|---|
+
+---
+
+## 10. Strategic Analysis
+
+Use:
+
+```text
+Technology Capability
+      ↓
+Product Capability
+      ↓
+Portfolio Role
+      ↓
+Market Position
+      ↓
+Economic Effect
+      ↓
+Competitive Advantage
+      ↓
+Defensibility
+      ↓
+Strategic Option
+```
+
+Strategic analysis must answer:
+
+- What platform capability has been built?
+- Is it reusable across products?
+- Does it improve cost, speed, quality, UX, or reliability?
+- Does it strengthen ecosystem lock-in or channel position?
+- Does it change the company's feasible product roadmap?
+- Is the advantage structural, execution-based, temporary, or easily copied?
+
+Avoid generic statements such as “technology strengthens competitiveness” unless the causal mechanism is demonstrated.
+
+---
+
+## 11. Future Outlook
+
+Future analysis is not a generic trend section.
+
+It must start from current constraints:
+
+```text
+Current Capability
+      ↓
+Remaining Bottleneck
+      ↓
+Why the Bottleneck Matters
+      ↓
+Enablers Becoming Available
+      ↓
+Company's Existing Assets
+      ↓
+Competitive / Economic Pressure
+      ↓
+Likely Evolution
+      ↓
+Strategic Consequence
+```
+
+Classify forward-looking statements as:
+
+- **Fact** — confirmed current/future statement from the company or authoritative source.
+- **Trend** — externally observable industry direction.
+- **Inference** — reasoned conclusion from evidence.
+- **Scenario** — conditional future possibility.
+- **Estimate** — numerical or quantitative projection.
+
+Never present inferred roadmap items as confirmed launches.
+
+Preferred horizons:
+
+- Near term: approximately 0–2 years
+- Mid term: approximately 2–5 years
+- Long term: 5+ years
+
+Use flexible horizons when the technology cycle does not fit these ranges.
+
+---
+
+## 12. Evidence Labels
+
+Use consistently:
+
+- **Fact** — source explicitly states it.
+- **Verified** — independently confirmed by multiple reliable sources.
+- **Reported** — credible third party reports it, but independent confirmation is limited.
+- **Inference** — derived from evidence and engineering reasoning.
+- **Estimate** — calculated or benchmarked approximation.
+- **Assessment** — analyst judgment based on evidence.
+- **Unknown** — insufficient evidence.
+
+When confidence matters, explicitly state confidence and assumptions.
+
+---
+
+## 13. Cross-Product Analysis
+
+When covering ≥3 models, use a horizontal matrix.
+
+Recommended dimensions:
+- positioning
+- price
+- build volume / core specifications
+- motion architecture
+- sensing
+- actuation
+- thermal system
+- software / algorithms
+- materials
+- automation
+- ecosystem
+- manufacturing complexity
+- upgrade path
+- strategic role
+
+Sensor and architecture states should use `Confirmed`, `Reported`, `Inferred`, or `Unknown` rather than emoji.
+
+---
+
+## 14. Research-Type Report Structures
 
 ### Company
-公司概况 → 发展历程 → 业务/产品版图 → 产品线 → 技术体系 → 生态系统 → 制造与供应链 → 商业模式/财务 → 竞争格局 → 战略判断 → Sources
+Company definition → history → portfolio → market positioning → technology system → product capability → ecosystem → manufacturing/supply chain → business/financials → competition → strategic analysis → future outlook → overall assessment → Sources
 
 ### Product
-产品定义 → 市场定位 → 产品线角色 → 用户与使用场景 → 核心规格 → 系统架构 → 核心子系统 → 软件/算法 → 材料/耗材 → 体验 → 可靠性与维护 → 制造与服务 → 成本/经济性 → 竞品 → 产品演进 → 综合判断 → Sources
+Use `Templates/product-report-v3.md` as the preferred structure:
+
+Product definition → portfolio role → user/market problem → specifications → architecture → capability map → core technology system → software/algorithms → materials/ecosystem → UX → reliability/manufacturing → competitive benchmark → evolution → strategic analysis → future outlook → overall assessment → evidence → Sources
 
 ### Technology
-技术定义 → 工作原理 → 系统架构 → 硬件实现 → 软件/算法 → 关键性能 → 工程难点 → 可靠性 → 制造与成本 → 竞品方案 → Trade-offs → 演进路线 → 趋势
+Technology definition → problem → technology cluster → architecture → mechanism → hardware → sensing → actuation → software/control → closed loop → performance → reliability → manufacturing/economics → trade-offs → competitive difference → evolution → strategic significance → future outlook → Sources
 
 ### Ecosystem
-生态边界 → 硬件 → 软件 → 耗材/配件 → 云服务 → 开放接口 → 社区 → 用户锁定 → 商业价值 → 竞品生态比较
+Ecosystem boundary → hardware → software → consumables/accessories → cloud → APIs → community → workflow integration → switching cost → monetization → competitive ecosystem comparison → strategic implications
 
 ### Competition
-市场边界 → 玩家地图 → 产品矩阵 → 技术路线 → 价格带 → 生态 → 制造/供应链 → 商业模式 → 竞争位置 → 潜在变化
+Market boundary → player map → product matrix → architecture/technology routes → price → ecosystem → manufacturing → business model → capability comparison → competitive position → future shifts
 
 ### Market
-市场定义 → 产品分类 → TAM/SAM/SOM（仅在数据足够时）→ 历史规模 → 增长驱动 → 用户结构 → 渠道 → 区域 → 竞争格局 → 技术趋势 → 供应链 → 未来情景
+Market definition → segmentation → scale → demand → users → channels → regions → competition → technology → supply chain → economics → scenarios → strategic implications
 
 ### Financial
-收入 → 增长 → 毛利 → 费用 → 现金流 → 成本结构 → 单位经济模型 → 估值/融资 → 资本效率 → 风险 → 与业务战略的关系
+Revenue → growth → margin → operating expenses → cash flow → cost structure → unit economics → valuation/funding → capital efficiency → operational drivers → strategic relationship → risks
 
-## 6. Technical Depth Rules
+---
 
-技术深度动态调整，不再强制所有 Company/Product 报告的技术章节固定占 40–60%。
+## 15. Technical Depth Rules
 
-| Task | Recommended technical share |
+Technical depth is determined by analytical importance, not fixed word count.
+
+| Task | Typical technical share |
 |---|---:|
 | Company overview | 30–50% |
 | Flagship product | 30–50% |
@@ -255,57 +681,29 @@ Why does it matter commercially and competitively?
 | Entry/basic product | 10–25% |
 | Pure technology study | 50–70% |
 
-旗舰产品或核心技术通常选择 2–3 个最具差异化的技术进行深拆。每项技术应覆盖原理、系统架构、硬件实现、材料/器件、安装位置、关键参数、控制/算法、可靠性/失效模式、代际演进、跨型号差异、竞品本质差异、优势与局限。
+A high-depth technology section is successful only when it explains design reasons and their impact on performance, cost, reliability, UX, manufacturing, and competition.
 
-200–400 行仅作为高深度参考区间，不再作为机械硬性要求。真正标准是技术拆解足以解释设计原因及其对性能、成本、可靠性和竞争结果的影响。
+200–400 lines may be appropriate for a deep technology chapter, but line count is never the objective.
 
-## 7. Cross-Product Analysis
+---
 
-覆盖 ≥3 个型号时，优先建立横向矩阵：核心规格、传感器、运动/执行机构、核心模块、软件能力、材料/耗材兼容、生态兼容、价格与定位等。
+## 16. Output Rules
 
-传感器矩阵使用 `Confirmed`、`Reported`、`Inferred`、`Unknown` 等证据状态；不要用 emoji 作为正文信息载体。
+- Markdown only.
+- Use tables for specifications and cross-product comparison.
+- Use ASCII diagrams for architecture, control loops, technology chains, and evolution.
+- Trace important conclusions to evidence or explicit reasoning.
+- Mark unknowns as `Unknown / 未公开`.
+- Never manufacture specifications, costs, financial figures, or roadmaps.
+- Keep engineering terminology precise.
+- Prefer mechanism and causal explanation over marketing language.
+- Avoid generic consulting language.
+- Do not repeat the same conclusion merely to increase length.
+- Do not expose internal Framework / Domain file paths in the final report unless the user asks for methodology.
+- Do not use SWOT, star ratings, or emoji as the core evaluation system.
+- Sources must be independently listed at the end.
 
-## 8. Evaluation Model
-
-研究阶段与最终评价阶段分开。
-
-### Technical
-创新性、性能、可靠性、复杂度、可扩展性、可制造性
-
-### User
-易用性、首次使用、维护、软件、校准、售后
-
-### Value
-规格/价格、功能密度、耗材/服务成本、升级成本
-
-### Manufacturing
-BOM、装配复杂度、DFM、良率、校准、可维修性
-
-### Business
-收入模式、毛利逻辑、渠道、生态、竞争壁垒
-
-### Strategic
-产品在公司产品线中的角色、平台价值、技术路线意义、竞争防御性
-
-默认综合判断输出：
-- Product Strengths
-- Product Weaknesses
-- Technical Position
-- User Value
-- Manufacturing Position
-- Competitive Position
-- Strategic Role
-- Overall Assessment
-
-只有用户明确要求购买建议时，才使用 Buy / Consider / Skip。
-
-## 9. Source Rules
-
-优先级：官方产品页/技术文档/用户手册/服务手册/Wiki/认证资料 → 厂商采访/发布会/技术演讲/专利 → 高质量行业媒体和专业评测 → 深度拆机/工程社区 → 经交叉验证的供应链信息。
-
-禁止把搜索引擎结果页当作来源；禁止用单一营销文案证明复杂技术结论；禁止将推断写成官方事实；禁止将估算值写成公开财务数据。
-
-Sources 使用独立条目：
+### Source format
 
 ```markdown
 ## Sources
@@ -313,105 +711,101 @@ Sources 使用独立条目：
 - [Source description](URL)
 ```
 
-## 10. Output Rules
+---
 
-- 使用 Markdown。
-- 参数优先使用表格。
-- 技术架构优先使用 ASCII 图、流程图、矩阵。
-- 关键判断必须可追溯到证据或明确工程推理。
-- 对未知信息明确写 `Unknown / 未公开`，不要填猜测数字。
-- 报告正文不暴露内部 Framework / Domain 文件路径和文件名。
-- 正文不使用 SWOT 矩阵、星级评分、emoji 作为评价体系。
-- 不使用管理咨询式空泛叙述替代工程分析。
-- 不为了追求篇幅而重复同一结论。
+## 17. Evaluation Model
 
-## 11. Continuous Knowledge Build-Up
+Separate research from final assessment.
 
-```text
-首次研究 → domain.md + WebSearch
-       ↓
-建立事实与产品模型
-       ↓
-验证关键结论
-       ↓
-沉淀 technology-model.md / knowledge/*.md
-       ↓
-下一次研究直接复用
-       ↓
-WebSearch 主要用于更新、验证和发现变化
-```
+### Technical
+Innovation, performance, reliability, complexity, scalability, manufacturability
 
-每次研究结束后，优先沉淀新术语、子系统定义、技术路线、benchmark、核心器件/供应商、常见失效模式、竞品差异和高质量长期来源。一次性价格、短期促销、未经验证的论坛猜测不要直接写入长期 Knowledge。
+### User
+Setup, calibration, workflow, maintenance, software, service
 
-## 12. Quality Gate
+### Value
+Specification/price, functional density, consumable/service cost, upgrade cost
 
-生成最终报告前检查：
+### Manufacturing
+BOM, assembly complexity, DFM, calibration, yield, repairability
 
-1. Domain 是否正确识别？
-2. Research type 是否正确？
-3. 对应 Framework 是否加载？
-4. Active Domain 是否读取了 `domain.md`、`technology-model.md` 和相关 Knowledge？
-5. Scaffold Domain 是否避免假设不存在的技术资料？
-6. Reference Report 是否需要？若使用，是否仅用于格式/深度参考？
-7. 关键事实是否有合适证据？
-8. Fact / Verified / Reported / Inference / Estimate / Assessment / Unknown 是否区分？
-9. 核心技术是否形成因果链，而不是参数堆砌？
-10. 结论是否能解释性能、成本、可靠性、用户价值或竞争结果？
-11. 是否存在未验证的猜测数字？
-12. Sources 是否完整、可追溯？
-13. 是否按照对应 Template 输出？
-14. 是否有明显重复或跨章节结论冲突？
+### Business
+Revenue model, margin logic, channels, ecosystem, competitive moat
 
-未通过质量门槛时，优先补证据或明确 Unknown，而不是用推测填补空白。
+### Strategic
+Portfolio role, platform value, technology-route significance, defensibility
 
-## 13. Architecture
+Default final assessment:
+- Product Strengths
+- Product Weaknesses
+- Technical Position
+- User Value
+- Manufacturing Position
+- Competitive Position
+- Strategic Role
+- Key Uncertainties
+
+Only use Buy / Consider / Skip when the user explicitly requests a purchasing recommendation.
+
+---
+
+## 18. Chapter Handoff
+
+The report is a connected analytical system, not independent chapters.
 
 ```text
-User Question
+Product Architecture
       ↓
-SKILL.md — orchestration
+Technology Capability
       ↓
-Research Type + Domain Detection
+Product / Workflow Capability
       ↓
-Frameworks — how to investigate
+Competitive Position
       ↓
-Domains — what matters technically
+Economic / Manufacturing Effect
       ↓
-Evidence — why claims are trusted
+Strategic Analysis
       ↓
-Playbooks — recurring task execution
-      ↓
-Research + Analysis + Evaluation
-      ↓
-Templates — output structure
-      ↓
-Report
+Future Outlook
 ```
 
-Reference Reports are optional side inputs:
+Later chapters must reuse and extend earlier conclusions.
+
+Examples:
+- A technology trade-off identified in the technology chapter should appear in manufacturing, UX, or competitive analysis where relevant.
+- A capability identified in the product chapter should inform strategic positioning.
+- A bottleneck identified in technology should become an input to future outlook.
+- A competitive gap should be tested against the company's existing technology and manufacturing assets before predicting future moves.
+
+---
+
+## 19. Continuous Knowledge Build-Up
 
 ```text
-Reference Report
-      ↓
-Output style / depth calibration only
+Research
+  ↓
+Verified Evidence
+  ↓
+Reusable Domain Knowledge
+  ↓
+Technology Model
+  ↓
+Analysis Model
+  ↓
+Higher-quality Reports
+  ↓
+New Evidence / Corrections
+  ↺
 ```
 
-They never replace Frameworks, Domain Models, Knowledge, Evidence, or Templates.
+Knowledge files should capture reusable engineering knowledge. Analysis files should capture reusable reasoning models. Reports remain evidence-bound outputs, not permanent sources of truth.
 
-## 14. Version History
+### Final standard
 
-### V2.2.2
-- Reference Report changed from mandatory to optional.
-- Clarified that reference reports are style/depth calibration only.
-- Added explicit `Reported` and `Unknown` evidence states to the workflow.
-- Added final Quality Gate.
+The quality of this Skill is measured by whether it can move from:
 
-### V2.2.1
-- Domain status semantics clarified.
-- Domain technology model and Knowledge architecture standardized.
+**“The company has feature X.”**
 
-### V2.2.0
-- Architecture cleanup.
-- Unified Domain `technology-model.md` naming.
-- Evidence layer strengthened.
-- Dynamic technical depth introduced.
+to:
+
+**“The company built X to solve problem Y; X works through mechanism Z; the integrated system creates capability A; that changes user/economic outcome B; it creates competitive effect C; the advantage is or is not defensible because of D; the next constraint is E; therefore the most plausible future evolution is F.”**
