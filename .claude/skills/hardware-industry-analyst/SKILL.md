@@ -1,6 +1,6 @@
 ---
 name: hardware-industry-analyst
-version: 2.2.1
+version: 2.2.2
 description: Analyze consumer hardware products, companies, technologies, ecosystems, competition, markets, manufacturing, and economics across multiple hardware domains.
 triggers:
   - 3D打印
@@ -72,7 +72,7 @@ triggers:
 
 This skill is a generic hardware research and analysis system for 3D printers, UV printers, laser engravers, robot vacuums, pool robots, lawn mowers, sensors, and other consumer/prosumer hardware.
 
-The system separates four layers:
+The system separates these layers:
 
 ```text
 Research Process
@@ -94,7 +94,7 @@ Report
 - Frameworks define the investigation skeleton.
 - Domains define the technical model, terminology, taxonomy, workflow, subsystems, and benchmarks.
 - Evidence controls confidence; distinguish fact, verified finding, report, inference, estimate, and unknown.
-- Existing reports define output density; reuse structure and depth standards, never conclusions or data.
+- Reference reports are optional style/depth references, not research dependencies or evidence sources.
 - Engineering reasoning is preferred over marketing language.
 - Unknown is an acceptable result; never manufacture specifications.
 
@@ -149,11 +149,30 @@ Status semantics:
 
 必须读取 `domain.md`；存在时按需读取 `technology-model.md` 和 `knowledge/*.md`。Active Domain 应优先使用已有 Technology Model / Knowledge；Scaffold Domain 不得假设这些文件已经存在，可以先通过 WebSearch 建立事实，再把验证过且长期复用的信息沉淀到 Domain。
 
-### Step 4 — Read Reference Report (MANDATORY)
+### Step 4 — Reference Report (OPTIONAL)
 
-正式生成报告前必须发现并完整读取至少 1 份同领域或同报告类型的已有 Markdown 报告，并提取：章节结构、表格密度、技术拆解粒度、ASCII 图密度、产品参数粒度和 Sources 格式。
+如果项目中存在同领域或同报告类型的高质量历史报告，可读取 1 份作为输出格式和分析深度参考。
 
-只能继承表达方式和深度标准，不得复制参考报告的结论、数字或未经验证的判断。没有同领域报告时，使用其他领域最接近的报告，并说明可能存在领域适配限制。
+参考报告主要用于：
+- 章节组织
+- 表格密度
+- 技术拆解粒度
+- ASCII 图 / 流程图 / 矩阵的使用方式
+- 参数呈现方式
+- Sources 格式
+- 报告整体深度
+
+参考报告不是研究事实来源，不得直接继承其中的：
+- 结论
+- 参数
+- 市场数据
+- 成本数据
+- 技术判断
+- 未经重新验证的事实
+
+如果不存在合适的参考报告，直接使用 Frameworks、Domain Model、Technology Model、Knowledge、Evidence Rules 和 Templates 完成研究，不得为了满足本步骤而强行寻找或读取无关报告。
+
+如果用户明确指定某份报告作为参考，则必须读取该报告，并仅将其作为表达方式和深度标准的参考。
 
 ### Step 5 — Build Evidence Base
 
@@ -181,9 +200,11 @@ Unknown
 
 - Fact：来源明确陈述
 - Verified：多来源交叉验证
+- Reported：可靠第三方明确报告但尚未充分独立验证
 - Inference：根据结构、照片、拆机、接口、规格等推断
 - Estimate：计算或行业基准估算
 - Assessment：基于证据形成的工程判断
+- Unknown：现有证据无法确定
 
 涉及 BOM、毛利、可靠性、供应链等无法直接验证的数据时，必须写明假设和置信度。
 
@@ -320,17 +341,77 @@ Sources 使用独立条目：
 WebSearch 主要用于更新、验证和发现变化
 ```
 
-每次研究结束后，优先沉淀新术语、子系统定义、技术路线、benchmark、核心器件/供应商、常见失效模式、竞品差异和高质量长期来源。一次性价格、短期促销、未经验证的论坛猜测不要直接写入长期知识库。
+每次研究结束后，优先沉淀新术语、子系统定义、技术路线、benchmark、核心器件/供应商、常见失效模式、竞品差异和高质量长期来源。一次性价格、短期促销、未经验证的论坛猜测不要直接写入长期 Knowledge。
 
-## Change Log
+## 12. Quality Gate
 
-| Version | Date | Change |
-|---|---|---|
-| V2.2.1 | 2026-09-03 | Domain lifecycle audit：明确 Active / Scaffold；robot-vacuum 补齐 Technology Model；统一新领域路由规则 |
-| V2.2.0 | 2026-09-02 | Architecture cleanup：统一 Domain technology-model 命名；修复 FDM material 断链；统一 UV control/electronics terminology；UV domain 标记为 Active |
-| V2.1.0 | 2026-09-02 | 升级为研究 + 证据 + 评价体系；Company/Product 结构分离；技术深度动态化；新增 Market/Research/Evidence 体系；取消默认 Buy/Consider/Skip |
-| V2.0.1 | 2026-07-01 | 强制读取已有报告作为格式标尺；增加技术深度约束；禁止 SWOT/emoji/星级评分 |
-| V2.0.0 | 2026-06-30 | 从 3DP 专项 Skill 重构为通用 Skill + Domain 插件 |
-| V1.1.1 | 2026-06-17 | 禁止在报告中泄露内部框架文件名 |
-| V1.1.0 | 2026-06-16 | 强化框架组合和技术深度 |
-| V1.0.0 | 2026-06-16 | 初始版本 |
+生成最终报告前检查：
+
+1. Domain 是否正确识别？
+2. Research type 是否正确？
+3. 对应 Framework 是否加载？
+4. Active Domain 是否读取了 `domain.md`、`technology-model.md` 和相关 Knowledge？
+5. Scaffold Domain 是否避免假设不存在的技术资料？
+6. Reference Report 是否需要？若使用，是否仅用于格式/深度参考？
+7. 关键事实是否有合适证据？
+8. Fact / Verified / Reported / Inference / Estimate / Assessment / Unknown 是否区分？
+9. 核心技术是否形成因果链，而不是参数堆砌？
+10. 结论是否能解释性能、成本、可靠性、用户价值或竞争结果？
+11. 是否存在未验证的猜测数字？
+12. Sources 是否完整、可追溯？
+13. 是否按照对应 Template 输出？
+14. 是否有明显重复或跨章节结论冲突？
+
+未通过质量门槛时，优先补证据或明确 Unknown，而不是用推测填补空白。
+
+## 13. Architecture
+
+```text
+User Question
+      ↓
+SKILL.md — orchestration
+      ↓
+Research Type + Domain Detection
+      ↓
+Frameworks — how to investigate
+      ↓
+Domains — what matters technically
+      ↓
+Evidence — why claims are trusted
+      ↓
+Playbooks — recurring task execution
+      ↓
+Research + Analysis + Evaluation
+      ↓
+Templates — output structure
+      ↓
+Report
+```
+
+Reference Reports are optional side inputs:
+
+```text
+Reference Report
+      ↓
+Output style / depth calibration only
+```
+
+They never replace Frameworks, Domain Models, Knowledge, Evidence, or Templates.
+
+## 14. Version History
+
+### V2.2.2
+- Reference Report changed from mandatory to optional.
+- Clarified that reference reports are style/depth calibration only.
+- Added explicit `Reported` and `Unknown` evidence states to the workflow.
+- Added final Quality Gate.
+
+### V2.2.1
+- Domain status semantics clarified.
+- Domain technology model and Knowledge architecture standardized.
+
+### V2.2.0
+- Architecture cleanup.
+- Unified Domain `technology-model.md` naming.
+- Evidence layer strengthened.
+- Dynamic technical depth introduced.
